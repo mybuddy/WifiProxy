@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FFFF7D43</color>
+    <color name="orange_pressed">#FFE46228</color>
+    <color name="orange_disabled">#FFFFEEB4</color>
+
+    <!-- 文本色 -->
+    <color name="text_primary_dark">#FF333333</color>
+    <color name="text_secondary_dark">#FF666666</color>
+    <color name="text_light">@color/white</color>
+    <color name="text_inactive">#FF999999</color>
+    <color name="text_active">@color/orange</color>
+    <color name="text_hint">#FFCCCCCC</color>
+
+    <!-- 背景填充色 -->
+    <color name="bg">#FFF5F5F5</color>
+    <color name="bg_content">@color/white</color>
+    <color name="bg_content_pressed">#FFF2F2F2</color>
+    <color name="bg_content_disabled">#FFD8D8D8</color>
+    <color name="bg_content_inactive">#B2FFFFFF</color>
+
+    <color name="bg_divider_inner">#FFE5E5E5</color> <!-- 分割线、进度条未完成部分-->
+    <color name="bg_divider_outer">#FFD8D8D8</color>
+    <color name="bg_input">#FFF1F1F1</color>
+
+    <!-- 阴影 -->
+    <color name="shadow_start">#30000000</color>
+    <color name="shadow_end">#00000000</color>
+</resources>

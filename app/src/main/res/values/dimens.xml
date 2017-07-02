@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 字体大小规范 -->
+    <dimen name="text_headline">17sp</dimen>
+    <dimen name="text_caption">16sp</dimen>
+    <dimen name="text_primary">15sp</dimen>
+    <dimen name="text_secondary">13sp</dimen>
+    <dimen name="text_button">14sp</dimen>
+    <dimen name="text_indicator">12sp</dimen>
+</resources>
