@@ -2,6 +2,7 @@ package com.felixyan.wifiproxy;
 
 import android.content.Context;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.felixyan.wifiproxy.adapter.IViewWrapper;
@@ -23,7 +25,7 @@ public class WifiListItemView extends FrameLayout implements IViewWrapper<ScanRe
     private TextView mTvSsid;
     private TextView mTvProxy;
     private SwitchCompat mSwitchProxy;
-    private TextView mTvSignal;
+    private ImageView mIvSignal;
 
     public WifiListItemView(@NonNull Context context) {
         super(context);
@@ -58,7 +60,7 @@ public class WifiListItemView extends FrameLayout implements IViewWrapper<ScanRe
         mTvSsid = (TextView) findViewById(R.id.tvSsid);
         mTvProxy = (TextView) findViewById(R.id.tvProxy);
         mSwitchProxy = (SwitchCompat) findViewById(R.id.switchProxy);
-        mTvSignal = (TextView) findViewById(R.id.tvSignal);
+        mIvSignal = (ImageView) findViewById(R.id.ivSignal);
     }
 
     @Override
@@ -69,7 +71,16 @@ public class WifiListItemView extends FrameLayout implements IViewWrapper<ScanRe
     @Override
     public void setData(int position, ScanResult data) {
         mTvSsid.setText(data.SSID);
+        WifiConfiguration config = Wifi.getInstance(getContext()).getSsidConfig(data.SSID);
+        if(config != null) {
+
+        }
+        if(Wifi.OPEN.equals(Wifi.getScanResultSecurity(data))) {
+            mIvSignal.setImageResource(R.drawable.signal_wifi_bar);
+        } else {
+            mIvSignal.setImageResource(R.drawable.signal_wifi_bar_lock);
+        }
         int signalLevel = WifiManager.calculateSignalLevel(data.level, 5);
-        mTvSignal.getCompoundDrawables()[0].setLevel(signalLevel);
+        mIvSignal.getDrawable().setLevel(signalLevel);
     }
 }

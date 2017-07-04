@@ -5,6 +5,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
 import java.util.List;
 
@@ -13,6 +14,17 @@ import java.util.List;
  */
 
 public class Wifi {
+    private static final String TAG = Wifi.class.getSimpleName();
+
+    // Constants used for different security types
+    public static final String WPA2 = "WPA2";
+    public static final String WPA = "WPA";
+    public static final String WEP = "WEP";
+    public static final String OPEN = "Open";
+    /* For EAP Enterprise fields */
+    public static final String WPA_EAP = "WPA-EAP";
+    public static final String IEEE8021X = "IEEE8021X";
+
     private static Wifi sWifi;
     private WifiManager mWifiManager;
     private Wifi() {}
@@ -49,11 +61,15 @@ public class Wifi {
         return mWifiManager.getWifiState();
     }
 
+    public boolean startScan() {
+        return mWifiManager.startScan();
+    }
+
     public List<ScanResult> getScanResults() {
         List<ScanResult> list = null;
-        if(mWifiManager.startScan()) {
+        //if(mWifiManager.startScan()) {
             list = mWifiManager.getScanResults();
-        }
+        //}
 
         return list;
     }
@@ -124,6 +140,51 @@ public class Wifi {
 
     public WifiInfo getConnectionInfo() {
         return mWifiManager.getConnectionInfo();
+    }
+
+    /**
+     * @return The security of a given {@link ScanResult}.
+     */
+    public static String getScanResultSecurity(ScanResult scanResult) {
+        final String cap = scanResult.capabilities;
+        final String[] securityModes = { WEP, WPA, WPA2, WPA_EAP, IEEE8021X };
+        for (int i = securityModes.length - 1; i >= 0; i--) {
+            if (cap.contains(securityModes[i])) {
+                return securityModes[i];
+            }
+        }
+
+        return OPEN;
+    }
+
+    /**
+     * @return The security of a given {@link WifiConfiguration}.
+     */
+    public static String getWifiConfigurationSecurity(WifiConfiguration wifiConfig) {
+        if (wifiConfig.allowedKeyManagement.get(WifiConfiguration.KeyMgmt.NONE)) {
+            // If we never set group ciphers, wpa_supplicant puts all of them.
+            // For open, we don't set group ciphers.
+            // For WEP, we specifically only set WEP40 and WEP104, so CCMP
+            // and TKIP should not be there.
+            if (!wifiConfig.allowedGroupCiphers.get(WifiConfiguration.GroupCipher.CCMP)
+                    && (wifiConfig.allowedGroupCiphers.get(WifiConfiguration.GroupCipher.WEP40)
+                    || wifiConfig.allowedGroupCiphers.get(WifiConfiguration.GroupCipher.WEP104))) {
+                return WEP;
+            } else {
+                return OPEN;
+            }
+        } else if (wifiConfig.allowedKeyManagement.get(WifiConfiguration.KeyMgmt.WPA_EAP)) {
+            return WPA_EAP;
+        } else if (wifiConfig.allowedKeyManagement.get(WifiConfiguration.KeyMgmt.IEEE8021X)) {
+            return IEEE8021X;
+        } else if (wifiConfig.allowedProtocols.get(WifiConfiguration.Protocol.RSN)) {
+            return WPA2;
+        } else if (wifiConfig.allowedProtocols.get(WifiConfiguration.Protocol.WPA)) {
+            return WPA;
+        } else {
+            Log.w(TAG, "Unknown security type from WifiConfiguration, falling back on open.");
+            return OPEN;
+        }
     }
 
     public enum WifiCipherType {

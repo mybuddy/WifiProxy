@@ -15,8 +15,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/tvSignal"
-        android:layout_toStartOf="@+id/tvSignal"
+        android:layout_toLeftOf="@+id/ivSignal"
+        android:layout_toStartOf="@+id/ivSignal"
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical">
@@ -56,7 +56,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
-    <TextView
+    <!--<TextView
         android:id="@+id/tvSignal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +66,27 @@
         android:drawableLeft="@drawable/signal_wifi_bar"
         android:drawableStart="@drawable/signal_wifi_bar"
         android:drawableRight="@drawable/ic_arrow_right"
-        android:drawableEnd="@drawable/ic_arrow_right"/>
+        android:drawableEnd="@drawable/ic_arrow_right"/>-->
+    <ImageView
+        android:id="@+id/ivSignal"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/ivArrow"
+        android:layout_toStartOf="@+id/ivArrow"
+        android:src="@drawable/signal_wifi_bar"/>
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/list_item_arrow_right"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
