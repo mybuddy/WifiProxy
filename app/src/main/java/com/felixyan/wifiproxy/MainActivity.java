@@ -19,7 +19,9 @@ import android.widget.CompoundButton;
 import com.felixyan.wifiproxy.adapter.WifiRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AbstractActivity {
     private static final int REQUEST_CODE_PERMISSION = 1;
@@ -31,9 +33,10 @@ public class MainActivity extends AbstractActivity {
     private SwitchCompat mSwitchWifi;
     private RecyclerView mRvWifiList;
 
-    private Wifi mWifi;
+    private WifiCenter mWifi;
     private Handler mHandler;
     private List<ScanResult> mScanResultList;
+    private Map<String, ScanResult> mScanResultMap;
     private WifiRecyclerViewAdapter mAdapter;
 
     @Override
@@ -50,12 +53,18 @@ public class MainActivity extends AbstractActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mScanReceiver);
+        super.onDestroy();
+    }
+
     private void initView() {
         mSwitchWifi = (SwitchCompat) findViewById(R.id.switchWifi);
         mRvWifiList = (RecyclerView) findViewById(R.id.rvWifiList);
         mRvWifiList.setLayoutManager(new LinearLayoutManager(this));
 
-        mSwitchWifi.setChecked(Wifi.getInstance(this).isWifiEnabled());
+        mSwitchWifi.setChecked(WifiCenter.getInstance(this).isWifiEnabled());
         mSwitchWifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -76,10 +85,11 @@ public class MainActivity extends AbstractActivity {
     }
 
     private void initData() {
-        mWifi = Wifi.getInstance(this);
+        mWifi = WifiCenter.getInstance(this);
         mHandler = new Handler();
         mScanResultList = new ArrayList<>();
-        mAdapter = new WifiRecyclerViewAdapter(this, mScanResultList);
+        mScanResultMap = new HashMap<>();
+        mAdapter = new WifiRecyclerViewAdapter(this, mWifi.getConnectionInfo(), mScanResultList);
         mRvWifiList.setAdapter(mAdapter);
     }
 
@@ -101,8 +111,29 @@ public class MainActivity extends AbstractActivity {
         List<ScanResult> resultList = mWifi.getScanResults();
         Log.d("main", "scan result: " + resultList.size());
         mScanResultList.clear();
-        mScanResultList.addAll(resultList);
+        mScanResultList.addAll(updateScanResultMap(resultList).values());
         mAdapter.notifyDataSetChanged();
+    }
+
+    private Map<String, ScanResult> updateScanResultMap(List<ScanResult> resultList) {
+        mScanResultMap.clear();
+
+        // 这里需要根据SSID做过滤，因为
+        // 1. 存在不同AP发出相同SSID热点的情况（如公司等比较大的场所里通常会这么做）
+        // 2. SSID相同但频段不同的热点（2.4G、5G）
+        for (ScanResult result : resultList) {
+            if(!mScanResultMap.containsKey(result.SSID)) {
+                // WIFI尚未添加，则添加
+                mScanResultMap.put(result.SSID, result);
+            } else {
+                // WIFI已添加，则比较信号强弱，取信号强的
+                ScanResult exist = mScanResultMap.get(result.SSID);
+                if(result.level > exist.level) {
+                    mScanResultMap.put(result.SSID, result);
+                }
+            }
+        }
+        return mScanResultMap;
     }
 
     private Runnable mScanRunnable = new Runnable() {
