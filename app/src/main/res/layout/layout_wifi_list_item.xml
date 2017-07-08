@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:paddingLeft="20dp"
-    android:paddingStart="20dp"
-    android:paddingRight="0dp"
-    android:paddingEnd="0dp"
-    android:background="@drawable/bg_content">
+    style="@style/ListItemStyle">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,10 +78,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         android:src="@drawable/list_item_arrow_right"/>
     <View
         android:layout_width="match_parent"

@@ -170,6 +170,17 @@ public class WifiCenter {
         return frequency > 4900 && frequency < 5900;
     }
 
+    public static String getSecurity(String capabilities) {
+        final String[] securityModes = { WEP, WPA, WPA2, WPA_EAP, IEEE8021X };
+        for (int i = securityModes.length - 1; i >= 0; i--) {
+            if (capabilities.contains(securityModes[i])) {
+                return securityModes[i];
+            }
+        }
+
+        return OPEN;
+    }
+
     /**
      * @return The security of a given {@link ScanResult}.
      */
