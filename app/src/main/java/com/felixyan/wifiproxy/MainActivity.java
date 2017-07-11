@@ -16,9 +16,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 
+import com.felixyan.wifiproxy.adapter.OnListItemClickListener;
 import com.felixyan.wifiproxy.adapter.WifiRecyclerViewAdapter;
+import com.felixyan.wifiproxy.dialog.UnConnectedDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,6 +69,13 @@ public class MainActivity extends AbstractActivity {
         mRvWifiList = (RecyclerView) findViewById(R.id.rvWifiList);
         mRvWifiList.setLayoutManager(new LinearLayoutManager(this));
         mRvWifiList.setAdapter(mAdapter);
+        mAdapter.setOnListItemClickListener(new OnListItemClickListener<WifiItemData>() {
+            @Override
+            public void onItemClick(View v, int viewType, int position, WifiItemData data) {
+                UnConnectedDialog dialog = new UnConnectedDialog(MainActivity.this, data);
+                dialog.show();
+            }
+        });
 
         mSwitchWifi.setChecked(WifiCenter.getInstance(this).isWifiEnabled());
         mSwitchWifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

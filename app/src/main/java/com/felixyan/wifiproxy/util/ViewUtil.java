@@ -1,8 +1,10 @@
-package com.felixyan.wifiproxy;
+package com.felixyan.wifiproxy.util;
 
 import android.content.Context;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
+
+import com.felixyan.wifiproxy.App;
 
 public class ViewUtil {
     public static float getDimension(int dimensionId) {
