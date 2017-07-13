@@ -137,9 +137,25 @@ public class WifiCenter {
         return config;
     }
 
-    public boolean addNewWifi(WifiConfiguration config) {
+    public boolean connect(String ssid, String password, WifiCipherType type) {
+        WifiConfiguration config = createWifiConfig(ssid, password, type);
+        if(config != null) {
+            return connect(config);
+        }
+        return false;
+    }
+
+    public boolean connect(WifiConfiguration config) {
         int netId = mWifiManager.addNetwork(config);
         return mWifiManager.enableNetwork(netId, false);
+    }
+
+    public boolean connectSavedWifi(String ssid) {
+        WifiConfiguration config = getSsidConfig(ssid);
+        if(config != null) {
+            return connect(config);
+        }
+        return false;
     }
 
     public WifiInfo getConnectionInfo() {
@@ -323,10 +339,21 @@ public class WifiCenter {
     }
 
     public enum WifiCipherType {
+        /*[WPA-PSK-CCMP][WPA2-PSK-CCMP][ESS]*/
         WIFICIPHER_WEP,
         WIFICIPHER_WPA,
         WIFICIPHER_NOPASS,
-        WIFICIPHER_INVALID
+        WIFICIPHER_INVALID;
+
+        public static WifiCipherType convert(String name) {
+            if(name.contains("WEP")) {
+                return WIFICIPHER_WEP;
+            }
+            if(name.contains("WPA")) {
+                return WIFICIPHER_WPA;
+            }
+            return WIFICIPHER_NOPASS;
+        }
     }
 
     /**

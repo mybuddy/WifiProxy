@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.felixyan.wifiproxy.R;
+import com.felixyan.wifiproxy.WifiCenter;
 import com.felixyan.wifiproxy.WifiItemData;
 import com.felixyan.wifiproxy.util.StringUtil;
 
@@ -28,19 +29,36 @@ public class UnConnectedDialog extends AlertDialog implements DialogInterface.On
     }
 
     private void initView() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_unconnected_dialog, null);
-        mEtPassword = (EditText) view.findViewById(R.id.etPassword);
-        setView(view);
-
         setTitle(mWifiItemData.getSsid());
-        setButton(BUTTON_POSITIVE, StringUtil.getString(R.string.dialog_button_connect), this);
-        setButton(BUTTON_NEGATIVE, StringUtil.getString(R.string.dialog_button_cancel), this);
+
+        if(!mWifiItemData.isConnected()) {
+            if(!mWifiItemData.isSaved()) {
+                View view = LayoutInflater.from(getContext()).inflate(
+                        R.layout.layout_unconnected_dialog, null);
+                mEtPassword = (EditText) view.findViewById(R.id.etPassword);
+                setView(view);
+            }
+
+            setButton(BUTTON_POSITIVE, StringUtil.getString(R.string.dialog_button_connect), this);
+            setButton(BUTTON_NEGATIVE, StringUtil.getString(R.string.dialog_button_cancel), this);
+        } else {
+            setButton(BUTTON_NEUTRAL, StringUtil.getString(R.string.dialog_button_close), this);
+        }
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
         switch (which) {
-            //case BUTTON_POSITIVE
+            case BUTTON_POSITIVE:
+                if(!mWifiItemData.isSaved()) {
+                    WifiCenter.getInstance(getContext()).connect(mWifiItemData.getSsid(), mEtPassword.getText().toString(), mWifiItemData.getCapabilities());
+                } else {
+                    WifiCenter.getInstance(getContext()).connectSavedWifi(mWifiItemData.getSsid());
+                }
+            case BUTTON_NEGATIVE:
+            case BUTTON_NEUTRAL:
+                dismiss();
+                break;
         }
     }
 }

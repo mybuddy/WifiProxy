@@ -12,7 +12,7 @@ public class WifiItemData {
     private boolean isProxyOn;
     private String proxy;
     private int level; // 信号强度
-    private String capabilities; // 安全性
+    private WifiCenter.WifiCipherType capabilities; // 安全性
     private int frequency;
 
     //private ScanResult scanResult; // 扫描结果
@@ -75,12 +75,16 @@ public class WifiItemData {
         this.level = level;
     }
 
-    public String getCapabilities() {
+    public WifiCenter.WifiCipherType getCapabilities() {
         return capabilities;
     }
 
-    public void setCapabilities(String capabilities) {
+    public void setCapabilities(WifiCenter.WifiCipherType capabilities) {
         this.capabilities = capabilities;
+    }
+
+    public void setCapabilities(String capabilities) {
+        this.capabilities = WifiCenter.WifiCipherType.convert(capabilities);
     }
 
     public int getFrequency() {
