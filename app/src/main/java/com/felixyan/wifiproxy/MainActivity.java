@@ -21,7 +21,7 @@ import android.widget.CompoundButton;
 
 import com.felixyan.wifiproxy.adapter.OnListItemClickListener;
 import com.felixyan.wifiproxy.adapter.WifiRecyclerViewAdapter;
-import com.felixyan.wifiproxy.dialog.UnConnectedDialog;
+import com.felixyan.wifiproxy.dialog.WifiItemDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,8 +71,25 @@ public class MainActivity extends AbstractActivity {
         mRvWifiList.setAdapter(mAdapter);
         mAdapter.setOnListItemClickListener(new OnListItemClickListener<WifiItemData>() {
             @Override
-            public void onItemClick(View v, int viewType, int position, WifiItemData data) {
-                UnConnectedDialog dialog = new UnConnectedDialog(MainActivity.this, data);
+            public void onItemClick(View v, int viewType, final int position, WifiItemData data) {
+                WifiItemDialog dialog = new WifiItemDialog(MainActivity.this, data);
+                dialog.setOnDialogResultListener(new WifiItemDialog.OnDialogResultListener() {
+                    @Override
+                    public void onDialogResult(int result, WifiItemData data) {
+                        if(result == WifiItemDialog.DIALOG_RESULT_CONNECT_SAVED_NETWORK) {
+                            // do nothing
+                            mAdapter.notifyDataSetChanged();
+                        } else if (result == WifiItemDialog.DIALOG_RESULT_CONNECT_NEW_NETWORK) {
+                            mSavedWifiList.add(0, data);
+                            mNearbyWifiList.remove(data);
+                            mAdapter.notifyDataSetChanged();
+                        } else if (result == WifiItemDialog.DIALOG_RESULT_REMOVE_NETWORK) {
+                            mSavedWifiList.remove(data);
+                            mNearbyWifiList.add(data);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
                 dialog.show();
             }
         });
@@ -167,7 +184,7 @@ public class MainActivity extends AbstractActivity {
                 for(WifiConfiguration config : configList) {
                     if(WifiCenter.isSameSsid(data.getSsid(), config.SSID)) {
                         data.setSaved(true);
-                        data.setNetId(config.networkId);
+                        data.setNetworkId(config.networkId);
 
                         if (WifiCenter.getProxySettings(config) == WifiCenter.ProxySettings.STATIC) {
                             ProxyInfo proxyInfo = WifiCenter.getHttpProxy(config);
@@ -184,7 +201,7 @@ public class MainActivity extends AbstractActivity {
             // 获取已连接的信息
             if(connectionInfo != null) {
                 if(WifiCenter.isSameSsid(data.getSsid(), connectionInfo.getSSID())) {
-                    data.setNetId(connectionInfo.getNetworkId());
+                    data.setNetworkId(connectionInfo.getNetworkId());
                     data.setConnected(true);
                 }
             }

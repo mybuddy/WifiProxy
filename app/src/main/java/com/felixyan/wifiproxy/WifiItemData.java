@@ -6,7 +6,7 @@ package com.felixyan.wifiproxy;
 
 public class WifiItemData {
     private String ssid; // 热点名称
-    private int netId; // 连接热点使用的真正id
+    private int networkId; // 连接热点使用的真正id
     private boolean isConnected;
     private boolean isSaved;
     private boolean isProxyOn;
@@ -27,12 +27,12 @@ public class WifiItemData {
         this.ssid = ssid;
     }
 
-    public int getNetId() {
-        return netId;
+    public int getNetworkId() {
+        return networkId;
     }
 
-    public void setNetId(int netId) {
-        this.netId = netId;
+    public void setNetworkId(int networkId) {
+        this.networkId = networkId;
     }
 
     public boolean isConnected() {

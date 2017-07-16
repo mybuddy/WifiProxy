@@ -92,12 +92,12 @@ public class WifiCenter {
         return null;
     }
 
-    public boolean disableNetwork(int netId) {
-        return mWifiManager.disableNetwork(netId);
+    public boolean disableNetwork(int networkId) {
+        return mWifiManager.disableNetwork(networkId);
     }
 
-    public boolean removeNetwork(int netId) {
-        return mWifiManager.removeNetwork(netId);
+    public boolean removeNetwork(int networkId) {
+        return networkId != -1 && mWifiManager.removeNetwork(networkId);
     }
 
     public WifiConfiguration createWifiConfig(String ssid, String password, WifiCipherType type) {
@@ -145,9 +145,13 @@ public class WifiCenter {
         return false;
     }
 
+    public boolean connect(int networkId) {
+        return networkId != -1 && mWifiManager.enableNetwork(networkId, true);
+    }
+
     public boolean connect(WifiConfiguration config) {
-        int netId = mWifiManager.addNetwork(config);
-        return mWifiManager.enableNetwork(netId, false);
+        int networkId = config.networkId != -1 ? config.networkId : mWifiManager.addNetwork(config);
+        return connect(networkId);
     }
 
     public boolean connectSavedWifi(String ssid) {
