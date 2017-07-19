@@ -19,7 +19,7 @@
     <string name="detail_proxy_hostname">Hostname</string>
     <string name="detail_proxy_port">Port</string>
     <string name="detail_proxy_bypass_for">Bypass for</string>
-    <string name="detail_proxy_pac_url">PAC URL:</string>
+    <string name="detail_proxy_pac_url">PAC URL</string>
 
     <string name="detail_ip">IP SETTINGS</string>
     <string name="detail_ip_static">Static</string>

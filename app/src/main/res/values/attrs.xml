@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExtendedEditText">
+        <attr name="EetClearIconLocation" format="enum">
+            <enum name="none" value="-1"/>
+            <enum name="left" value="0"/>
+            <enum name="right" value="2"/>
+        </attr>
+        <attr name="EetPrefixText" format="string"/>
+        <attr name="EetSuffixText" format="string"/>
+    </declare-styleable>
+</resources>

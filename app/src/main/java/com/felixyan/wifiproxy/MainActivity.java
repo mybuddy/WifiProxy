@@ -72,7 +72,7 @@ public class MainActivity extends AbstractActivity {
         mAdapter.setOnListItemClickListener(new OnListItemClickListener<WifiItemData>() {
             @Override
             public void onItemClick(View v, int viewType, final int position, WifiItemData data) {
-                WifiItemDialog dialog = new WifiItemDialog(MainActivity.this, data);
+                /*WifiItemDialog dialog = new WifiItemDialog(MainActivity.this, data);
                 dialog.setOnDialogResultListener(new WifiItemDialog.OnDialogResultListener() {
                     @Override
                     public void onDialogResult(int result, WifiItemData data) {
@@ -90,7 +90,10 @@ public class MainActivity extends AbstractActivity {
                         }
                     }
                 });
-                dialog.show();
+                dialog.show();*/
+
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -8,10 +8,29 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar"/>
+
     <style name="ListItemStyle">
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingStart">15dp</item>
         <item name="android:background">@color/bg_content</item>
     </style>
 
+    <style name="DetailItemTextCaption">
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:textSize">@dimen/text_caption</item>
+        <item name="android:textColor">@color/text_primary_dark</item>
+    </style>
+
+    <style name="DetailItemTextLabel">
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+    </style>
+
+    <style name="DetailItemEditText">
+        <item name="layout_widthPercent">75%</item>
+    </style>
 </resources>
