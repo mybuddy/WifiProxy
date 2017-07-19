@@ -15,17 +15,18 @@
     <string name="detail_proxy">代理</string>
     <string name="detail_proxy_none">无</string>
     <string name="detail_proxy_manual">手动</string>
-    <string name="detail_proxy_proxy_auto_config">自动配置</string>
-    <string name="detail_proxy_hostname">主机</string>
+    <string name="detail_proxy_proxy_auto_config">代理自动配置</string>
+    <string name="detail_proxy_hostname">主机名</string>
     <string name="detail_proxy_port">端口</string>
-    <string name="detail_proxy_bypass_for">排除</string>
+    <string name="detail_proxy_bypass_for">不使用网址</string>
+    <string name="detail_proxy_pac_url">PAC网址：</string>
 
     <string name="detail_ip">IP设置</string>
     <string name="detail_ip_static">静态</string>
     <string name="detail_ip_dhcp">DHCP</string>
     <string name="detail_ip_ip_address">IP地址</string>
-    <string name="detail_ip_gateway">网关</string>
+    <string name="detail_ip_gateway">路由器</string>
     <string name="detail_ip_prefix_length">前缀长度</string>
-    <string name="detail_ip_dns1">DNS1</string>
-    <string name="detail_ip_dns2">DNS2</string>
+    <string name="detail_ip_dns1">DNS 1</string>
+    <string name="detail_ip_dns2">DNS 2</string>
 </resources>

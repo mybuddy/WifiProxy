@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">WIFI代理</string>
+
+    <string name="switch_wifi">开启WIFI</string>
+
+    <string name="hint_input_password">输入密码</string>
+    <string name="dialog_button_connect">连接</string>
+    <string name="dialog_button_cancel">取消</string>
+    <string name="dialog_button_cancel_save">取消保存</string>
+    <string name="dialog_button_close">好的</string>
+
+    <string name="detail_button_cancel">取消</string>
+    <string name="detail_button_confirm">确定</string>
+
+    <string name="detail_proxy">PROXY</string>
+    <string name="detail_proxy_none">None</string>
+    <string name="detail_proxy_manual">Manual</string>
+    <string name="detail_proxy_proxy_auto_config">Proxy Auto-Config</string>
+    <string name="detail_proxy_hostname">Hostname</string>
+    <string name="detail_proxy_port">Port</string>
+    <string name="detail_proxy_bypass_for">Bypass for</string>
+    <string name="detail_proxy_pac_url">PAC URL:</string>
+
+    <string name="detail_ip">IP SETTINGS</string>
+    <string name="detail_ip_static">Static</string>
+    <string name="detail_ip_dhcp">DHCP</string>
+    <string name="detail_ip_ip_address">IP address</string>
+    <string name="detail_ip_gateway">Gateway</string>
+    <string name="detail_ip_prefix_length">Prefix length</string>
+    <string name="detail_ip_dns1">DNS1</string>
+    <string name="detail_ip_dns2">DNS2</string>
+</resources>
