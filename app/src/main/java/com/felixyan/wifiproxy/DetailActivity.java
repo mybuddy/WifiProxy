@@ -5,10 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_SSID = "extra_ssid";
+    private Spinner mSpProxy;
+    private Spinner mSpIp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,40 +6,40 @@
     android:orientation="vertical"
     android:background="@color/bg">
 
-    <!--<RelativeLayout
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:text="@string/detail_button_cancel"/>
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/btnCancel"
-            android:layout_toLeftOf="@+id/btnConfirm"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"/>
-
-        <Button
-            android:id="@+id/btnConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:text="@string/detail_button_confirm"/>
-    </RelativeLayout>-->
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/bg_content"
+        android:layout_marginBottom="2dp"
+        android:checkedButton="@+id/rbProxy">
+        <RadioButton
+            android:id="@+id/rbProxy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:text="@string/detail_proxy"
+            android:textColor="@color/tab_rb"
+            android:background="@drawable/tab_rb_bottom_indicator"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="15dp"
+            android:background="@color/bg_divider_inner"/>
+        <RadioButton
+            android:id="@+id/rbIp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:text="@string/detail_ip"
+            android:textColor="@color/tab_rb"
+            android:background="@drawable/tab_rb_bottom_indicator"/>
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:background="@color/bg_content">
-        <android.support.percent.PercentRelativeLayout
+        <!--<android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -61,14 +61,14 @@
                 android:layout_alignBottom="@+id/spProxy"
                 android:text="@string/detail_proxy"
                 style="@style/DetailItemTextCaption"/>
-            <!--<TextView
+            &lt;!&ndash;<TextView
                 android:id="@+id/tvProxy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 tools:text="@string/detail_proxy_manual"
-                style="@style/DetailItemEditText"/>-->
+                style="@style/DetailItemEditText"/>&ndash;&gt;
             <Spinner
                 android:id="@+id/spProxy"
                 android:layout_width="0dp"
@@ -77,7 +77,15 @@
                 android:layout_alignParentEnd="true"
                 android:entries="@array/proxy_entry"
                 style="@style/DetailItemEditText"/>
-        </android.support.percent.PercentRelativeLayout>
+        </android.support.percent.PercentRelativeLayout>-->
+
+        <Spinner
+            android:id="@+id/spProxy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:entries="@array/proxy_entry"
+            style="@style/DetailItemEditText"/>
 
         <android.support.percent.PercentRelativeLayout
             android:id="@+id/prlManual"
@@ -165,12 +173,12 @@
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:background="@color/bg_content">
-        <android.support.percent.PercentRelativeLayout
+        <!--<android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
-            <TextView
+            &lt;!&ndash;<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/spIP"
@@ -178,15 +186,15 @@
                 android:layout_alignTop="@+id/spIP"
                 android:layout_alignBottom="@+id/spIP"
                 android:text="@string/detail_ip"
-                style="@style/DetailItemTextCaption"/>
-            <!--<TextView
+                style="@style/DetailItemTextCaption"/>&ndash;&gt;
+            &lt;!&ndash;<TextView
                 android:id="@+id/tvIp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 tools:text="@string/detail_ip_static"
-                style="@style/DetailItemEditText"/>-->
+                style="@style/DetailItemEditText"/>&ndash;&gt;
             <Spinner
                 android:id="@+id/spIP"
                 android:layout_width="0dp"
@@ -195,7 +203,15 @@
                 android:layout_alignParentEnd="true"
                 android:entries="@array/ip_entry"
                 style="@style/DetailItemEditText"/>
-        </android.support.percent.PercentRelativeLayout>
+        </android.support.percent.PercentRelativeLayout>-->
+
+        <Spinner
+            android:id="@+id/spIP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:entries="@array/ip_entry"
+            style="@style/DetailItemEditText"/>
 
         <android.support.percent.PercentRelativeLayout
             android:id="@+id/prlStaticIp"
