@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -46,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="10dp"
         android:background="@color/bg_content">
         <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
@@ -55,19 +55,27 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/tvProxy"
-                android:layout_toStartOf="@+id/tvProxy"
-                android:layout_alignTop="@+id/tvProxy"
-                android:layout_alignBottom="@+id/tvProxy"
+                android:layout_toLeftOf="@+id/spProxy"
+                android:layout_toStartOf="@+id/spProxy"
+                android:layout_alignTop="@+id/spProxy"
+                android:layout_alignBottom="@+id/spProxy"
                 android:text="@string/detail_proxy"
                 style="@style/DetailItemTextCaption"/>
-            <TextView
+            <!--<TextView
                 android:id="@+id/tvProxy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 tools:text="@string/detail_proxy_manual"
+                style="@style/DetailItemEditText"/>-->
+            <Spinner
+                android:id="@+id/spProxy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:entries="@array/proxy_entry"
                 style="@style/DetailItemEditText"/>
         </android.support.percent.PercentRelativeLayout>
 
@@ -154,8 +162,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/bg_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@color/bg_content">
         <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -164,19 +173,27 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/tvIp"
-                android:layout_toStartOf="@+id/tvIp"
-                android:layout_alignTop="@+id/tvIp"
-                android:layout_alignBottom="@+id/tvIp"
+                android:layout_toLeftOf="@+id/spIP"
+                android:layout_toStartOf="@+id/spIP"
+                android:layout_alignTop="@+id/spIP"
+                android:layout_alignBottom="@+id/spIP"
                 android:text="@string/detail_ip"
                 style="@style/DetailItemTextCaption"/>
-            <TextView
+            <!--<TextView
                 android:id="@+id/tvIp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 tools:text="@string/detail_ip_static"
+                style="@style/DetailItemEditText"/>-->
+            <Spinner
+                android:id="@+id/spIP"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:entries="@array/ip_entry"
                 style="@style/DetailItemEditText"/>
         </android.support.percent.PercentRelativeLayout>
 

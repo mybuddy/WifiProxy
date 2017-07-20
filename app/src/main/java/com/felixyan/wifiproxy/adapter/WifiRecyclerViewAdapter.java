@@ -132,12 +132,12 @@ public class WifiRecyclerViewAdapter extends BaseRecyclerViewAdapter<WifiItemDat
             case VIEW_TYPE_HEADER_SAVED_WIFI:
                 View view1 = getLayoutInflater().inflate(R.layout.layout_wifi_list_item_header, parent, false);
                 TextView header1 = (TextView) view1.findViewById(R.id.tvHeader);
-                header1.setText("已连接/已保存的WIFI");
+                header1.setText(getContext().getString(R.string.list_connected));
                 return new ViewWrapper(view1);
             case VIEW_TYPE_HEADER_NEARBY_WIFI:
                 View view2 = getLayoutInflater().inflate(R.layout.layout_wifi_list_item_header, parent, false);
                 TextView header2 = (TextView) view2.findViewById(R.id.tvHeader);
-                header2.setText("选取附近的WIFI");
+                header2.setText(getContext().getString(R.string.list_available_networks));
                 return new ViewWrapper(view2);
             case VIEW_TYPE_SAVED_DATA:
             case VIEW_TYPE_NEARBY_DATA:

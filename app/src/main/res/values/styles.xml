@@ -31,6 +31,6 @@
     </style>
 
     <style name="DetailItemEditText">
-        <item name="layout_widthPercent">75%</item>
+        <item name="layout_widthPercent">70%</item>
     </style>
 </resources>

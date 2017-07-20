@@ -1,16 +1,18 @@
 <resources>
-    <string name="app_name">WIFI代理</string>
+    <string name="app_name">WIFI PROXY</string>
 
-    <string name="switch_wifi">开启WIFI</string>
+    <string name="switch_wifi">WIFI ON</string>
+    <string name="list_connected">CONNECTED</string>
+    <string name="list_available_networks">AVAILABLE NETWORKS</string>
 
-    <string name="hint_input_password">输入密码</string>
-    <string name="dialog_button_connect">连接</string>
-    <string name="dialog_button_cancel">取消</string>
-    <string name="dialog_button_cancel_save">取消保存</string>
-    <string name="dialog_button_close">好的</string>
+    <string name="hint_input_password">Input password</string>
+    <string name="dialog_button_connect">Connect</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_cancel_save">Forget</string>
+    <string name="dialog_button_close">OK</string>
 
-    <string name="detail_button_cancel">取消</string>
-    <string name="detail_button_confirm">确定</string>
+    <string name="detail_button_close">Close</string>
+    <string name="detail_button_save">Save</string>
 
     <string name="detail_proxy">PROXY</string>
     <string name="detail_proxy_none">None</string>

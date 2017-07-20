@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="proxy_entry">
+        <item>@string/detail_proxy_none</item>
+        <item>@string/detail_proxy_manual</item>
+        <item>@string/detail_proxy_proxy_auto_config</item>
+    </array>
+
+    <array name="ip_entry">
+        <item>@string/detail_ip_dhcp</item>
+        <item>@string/detail_ip_static</item>
+    </array>
+</resources>

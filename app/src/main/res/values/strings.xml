@@ -2,6 +2,8 @@
     <string name="app_name">WIFI代理</string>
 
     <string name="switch_wifi">开启WIFI</string>
+    <string name="list_connected">已连接/已保存的WIFI</string>
+    <string name="list_available_networks">选取附近的WIFI</string>
 
     <string name="hint_input_password">输入密码</string>
     <string name="dialog_button_connect">连接</string>
@@ -9,8 +11,8 @@
     <string name="dialog_button_cancel_save">取消保存</string>
     <string name="dialog_button_close">好的</string>
 
-    <string name="detail_button_cancel">取消</string>
-    <string name="detail_button_confirm">确定</string>
+    <string name="detail_button_close">关闭</string>
+    <string name="detail_button_save">保存</string>
 
     <string name="detail_proxy">代理</string>
     <string name="detail_proxy_none">无</string>

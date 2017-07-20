@@ -93,6 +93,7 @@ public class MainActivity extends AbstractActivity {
                 dialog.show();*/
 
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_SSID, data.getSsid());
                 startActivity(intent);
             }
         });
