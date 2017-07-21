@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import com.felixyan.wifiproxy.R;
 import com.felixyan.wifiproxy.util.ViewUtil;
-import com.felixyan.wifiproxy.WifiItemData;
-import com.felixyan.wifiproxy.WifiItemView;
+import com.felixyan.wifiproxy.model.WifiItemData;
+import com.felixyan.wifiproxy.view.WifiItemView;
 
 import java.util.List;
 

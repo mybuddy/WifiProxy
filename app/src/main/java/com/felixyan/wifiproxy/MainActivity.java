@@ -21,7 +21,7 @@ import android.widget.CompoundButton;
 
 import com.felixyan.wifiproxy.adapter.OnListItemClickListener;
 import com.felixyan.wifiproxy.adapter.WifiRecyclerViewAdapter;
-import com.felixyan.wifiproxy.dialog.WifiItemDialog;
+import com.felixyan.wifiproxy.model.WifiItemData;
 
 import java.util.ArrayList;
 import java.util.Collections;

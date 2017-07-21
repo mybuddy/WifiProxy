@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="?attr/dialogPreferredPadding">
+
+    <TextView
+        style="@style/DetailItemTextLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etHostname"
+        android:layout_alignTop="@+id/etHostname"
+        android:layout_toLeftOf="@+id/etHostname"
+        android:layout_toStartOf="@+id/etHostname"
+        android:text="@string/detail_proxy_hostname"/>
+
+    <EditText
+        android:id="@+id/etHostname"
+        style="@style/DetailItemEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        style="@style/DetailItemTextLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etPort"
+        android:layout_alignTop="@+id/etPort"
+        android:layout_toLeftOf="@+id/etPort"
+        android:layout_toStartOf="@+id/etPort"
+        android:text="@string/detail_proxy_port"/>
+
+    <EditText
+        android:id="@+id/etPort"
+        style="@style/DetailItemEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/etHostname"/>
+
+    <TextView
+        style="@style/DetailItemTextLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etBypassFor"
+        android:layout_alignTop="@+id/etBypassFor"
+        android:layout_toLeftOf="@+id/etBypassFor"
+        android:layout_toStartOf="@+id/etBypassFor"
+        android:text="@string/detail_proxy_bypass_for"/>
+
+    <EditText
+        android:id="@+id/etBypassFor"
+        style="@style/DetailItemEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/etPort"/>
+</android.support.percent.PercentRelativeLayout>

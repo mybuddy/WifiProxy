@@ -1,10 +1,6 @@
-package com.felixyan.wifiproxy;
+package com.felixyan.wifiproxy.view;
 
 import android.content.Context;
-import android.net.ProxyInfo;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +12,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.felixyan.wifiproxy.R;
+import com.felixyan.wifiproxy.WifiCenter;
+import com.felixyan.wifiproxy.model.WifiItemData;
 import com.felixyan.wifiproxy.adapter.IViewWrapper;
 
 /**

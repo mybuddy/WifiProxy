@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- IP配置 -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:background="@color/bg_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <Spinner
+        android:id="@+id/spIP"
+        style="@style/DetailItemEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/ip_entry"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/prlStaticIp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/DetailItemTextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etIpAddress"
+            android:layout_alignTop="@+id/etIpAddress"
+            android:layout_toLeftOf="@+id/etIpAddress"
+            android:layout_toStartOf="@+id/etIpAddress"
+            android:text="@string/detail_ip_ip_address"/>
+
+        <EditText
+            android:id="@+id/etIpAddress"
+            style="@style/DetailItemEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            style="@style/DetailItemTextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etGateway"
+            android:layout_alignTop="@+id/etGateway"
+            android:layout_toLeftOf="@+id/etGateway"
+            android:layout_toStartOf="@+id/etGateway"
+            android:text="@string/detail_ip_gateway"/>
+
+        <EditText
+            android:id="@+id/etGateway"
+            style="@style/DetailItemEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/etIpAddress"/>
+
+        <TextView
+            style="@style/DetailItemTextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etPrefixLength"
+            android:layout_alignTop="@+id/etPrefixLength"
+            android:layout_toLeftOf="@+id/etPrefixLength"
+            android:layout_toStartOf="@+id/etPrefixLength"
+            android:text="@string/detail_ip_prefix_length"/>
+
+        <EditText
+            android:id="@+id/etPrefixLength"
+            style="@style/DetailItemEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/etGateway"/>
+
+        <TextView
+            style="@style/DetailItemTextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etDns1"
+            android:layout_alignTop="@+id/etDns1"
+            android:layout_toLeftOf="@+id/etDns1"
+            android:layout_toStartOf="@+id/etDns1"
+            android:text="@string/detail_ip_dns1"/>
+
+        <EditText
+            android:id="@+id/etDns1"
+            style="@style/DetailItemEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/etPrefixLength"/>
+
+        <TextView
+            style="@style/DetailItemTextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etDns2"
+            android:layout_alignTop="@+id/etDns2"
+            android:layout_toLeftOf="@+id/etDns2"
+            android:layout_toStartOf="@+id/etDns2"
+            android:text="@string/detail_ip_dns2"/>
+
+        <EditText
+            android:id="@+id/etDns2"
+            style="@style/DetailItemEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/etDns1"/>
+    </android.support.percent.PercentRelativeLayout>
+</LinearLayout>

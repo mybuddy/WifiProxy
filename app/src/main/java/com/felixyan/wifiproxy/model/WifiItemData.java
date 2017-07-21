@@ -1,4 +1,6 @@
-package com.felixyan.wifiproxy;
+package com.felixyan.wifiproxy.model;
+
+import com.felixyan.wifiproxy.WifiCenter;
 
 /**
  * Created by yanfei on 2017/07/08.

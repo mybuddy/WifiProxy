@@ -14,6 +14,8 @@
     <string name="detail_button_close">关闭</string>
     <string name="detail_button_save">保存</string>
 
+    <string name="detail_general">通用</string>
+
     <string name="detail_proxy">代理</string>
     <string name="detail_proxy_none">无</string>
     <string name="detail_proxy_manual">手动</string>

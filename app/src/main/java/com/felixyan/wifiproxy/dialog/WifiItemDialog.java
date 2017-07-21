@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.felixyan.wifiproxy.R;
 import com.felixyan.wifiproxy.WifiCenter;
-import com.felixyan.wifiproxy.WifiItemData;
+import com.felixyan.wifiproxy.model.WifiItemData;
 import com.felixyan.wifiproxy.util.StringUtil;
 
 /**
@@ -49,7 +49,7 @@ public class WifiItemDialog extends AlertDialog implements DialogInterface.OnCli
         if(!mWifiItemData.isConnected()) {
             if(!mWifiItemData.isSaved()) {
                 View view = LayoutInflater.from(getContext()).inflate(
-                        R.layout.layout_unconnected_dialog, null);
+                        R.layout.layout_dialog_unconnected, null);
                 mEtPassword = (EditText) view.findViewById(R.id.etPassword);
                 setView(view);
             } else {

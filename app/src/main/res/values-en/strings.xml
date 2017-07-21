@@ -14,6 +14,8 @@
     <string name="detail_button_close">Close</string>
     <string name="detail_button_save">Save</string>
 
+    <string name="detail_general">GENERAL</string>
+
     <string name="detail_proxy">PROXY</string>
     <string name="detail_proxy_none">None</string>
     <string name="detail_proxy_manual">Manual</string>
