@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 代理 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_content"
-    android:orientation="vertical"
-    android:padding="10dp">
+<!-- 代理配置 -->
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Spinner
         android:id="@+id/spProxy"
-        style="@style/DetailItemEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/proxy_entry"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:minHeight="45dp"
+        android:entries="@array/proxy_entry"/>
 
-    <android.support.v7.widget.RecyclerView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0.5dp"
+        android:background="@color/bg_divider_outer"/>
 
-    <android.support.percent.PercentRelativeLayout
+    <ListView
+        android:id="@+id/lvManual"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
         android:id="@+id/prlAuto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:paddingRight="15dp"
+        android:paddingEnd="15dp"
+        android:visibility="gone">
         <TextView
             style="@style/DetailItemTextLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/etProxyPacUrl"
-            android:layout_alignTop="@+id/etProxyPacUrl"
-            android:layout_toLeftOf="@+id/etProxyPacUrl"
-            android:layout_toStartOf="@+id/etProxyPacUrl"
             android:text="@string/detail_proxy_pac_url"/>
 
         <EditText
             android:id="@+id/etProxyPacUrl"
-            style="@style/DetailItemEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"/>
-    </android.support.percent.PercentRelativeLayout>
-</LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</merge>

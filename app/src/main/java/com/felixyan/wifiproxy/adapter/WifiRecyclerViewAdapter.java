@@ -17,11 +17,11 @@ import java.util.List;
  */
 
 public class WifiRecyclerViewAdapter extends BaseRecyclerViewAdapter<WifiItemData> {
-    private static final int VIEW_TYPE_GAP = 0;
-    private static final int VIEW_TYPE_HEADER_SAVED_WIFI = 1;
-    private static final int VIEW_TYPE_HEADER_NEARBY_WIFI = 2;
-    private static final int VIEW_TYPE_SAVED_DATA = 3;
-    private static final int VIEW_TYPE_NEARBY_DATA = 4;
+    public static final int VIEW_TYPE_GAP = 0;
+    public static final int VIEW_TYPE_HEADER_SAVED_WIFI = 1;
+    public static final int VIEW_TYPE_HEADER_NEARBY_WIFI = 2;
+    public static final int VIEW_TYPE_SAVED_DATA = 3;
+    public static final int VIEW_TYPE_NEARBY_DATA = 4;
 
     private List<WifiItemData> mSavedWifiList;
     private List<WifiItemData> mNearbyWifiList;
@@ -130,12 +130,12 @@ public class WifiRecyclerViewAdapter extends BaseRecyclerViewAdapter<WifiItemDat
                 view.setMinimumHeight(ViewUtil.dp2px(10));
                 return new ViewWrapper(view);
             case VIEW_TYPE_HEADER_SAVED_WIFI:
-                View view1 = getLayoutInflater().inflate(R.layout.layout_wifi_list_item_header, parent, false);
+                View view1 = getLayoutInflater().inflate(R.layout.layout_main_list_item_header, parent, false);
                 TextView header1 = (TextView) view1.findViewById(R.id.tvHeader);
                 header1.setText(getContext().getString(R.string.list_connected));
                 return new ViewWrapper(view1);
             case VIEW_TYPE_HEADER_NEARBY_WIFI:
-                View view2 = getLayoutInflater().inflate(R.layout.layout_wifi_list_item_header, parent, false);
+                View view2 = getLayoutInflater().inflate(R.layout.layout_main_list_item_header, parent, false);
                 TextView header2 = (TextView) view2.findViewById(R.id.tvHeader);
                 header2.setText(getContext().getString(R.string.list_available_networks));
                 return new ViewWrapper(view2);

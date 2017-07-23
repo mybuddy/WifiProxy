@@ -4,10 +4,12 @@
     <string name="switch_wifi">WIFI ON</string>
     <string name="list_connected">CONNECTED</string>
     <string name="list_available_networks">AVAILABLE NETWORKS</string>
+    <string name="list_proxy_format">Proxy %s</string>
 
     <string name="hint_input_password">Input password</string>
     <string name="dialog_button_connect">Connect</string>
     <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_save">Save</string>
     <string name="dialog_button_cancel_save">Forget</string>
     <string name="dialog_button_close">OK</string>
 
@@ -20,6 +22,7 @@
     <string name="detail_proxy_none">None</string>
     <string name="detail_proxy_manual">Manual</string>
     <string name="detail_proxy_proxy_auto_config">Proxy Auto-Config</string>
+    <string name="detail_proxy_add_new_manual_proxy">Add new proxy</string>
     <string name="detail_proxy_hostname">Hostname</string>
     <string name="detail_proxy_port">Port</string>
     <string name="detail_proxy_bypass_for">Bypass for</string>
@@ -33,4 +36,11 @@
     <string name="detail_ip_prefix_length">Prefix length</string>
     <string name="detail_ip_dns1">DNS1</string>
     <string name="detail_ip_dns2">DNS2</string>
+
+    <string name="detail_general_signal_strength">Signal strength</string>
+    <string name="detail_general_security">Security</string>
+    <string name="detail_general_link_speed">Link speed</string>
+    <string name="detail_general_ip_address">IP address</string>
+    <string name="detail_general_subnet_mask">Subnet mask</string>
+    <string name="detail_general_gateway">Gateway</string>
 </resources>

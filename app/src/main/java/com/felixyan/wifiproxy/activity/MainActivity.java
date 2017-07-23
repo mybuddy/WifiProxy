@@ -1,4 +1,4 @@
-package com.felixyan.wifiproxy;
+package com.felixyan.wifiproxy.activity;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -19,9 +19,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.felixyan.wifiproxy.R;
+import com.felixyan.wifiproxy.WifiCenter;
 import com.felixyan.wifiproxy.adapter.OnListItemClickListener;
 import com.felixyan.wifiproxy.adapter.WifiRecyclerViewAdapter;
+import com.felixyan.wifiproxy.dialog.WifiItemDialog;
 import com.felixyan.wifiproxy.model.WifiItemData;
+import com.felixyan.wifiproxy.util.PermissionUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,29 +76,28 @@ public class MainActivity extends AbstractActivity {
         mAdapter.setOnListItemClickListener(new OnListItemClickListener<WifiItemData>() {
             @Override
             public void onItemClick(View v, int viewType, final int position, WifiItemData data) {
-                /*WifiItemDialog dialog = new WifiItemDialog(MainActivity.this, data);
-                dialog.setOnDialogResultListener(new WifiItemDialog.OnDialogResultListener() {
-                    @Override
-                    public void onDialogResult(int result, WifiItemData data) {
-                        if(result == WifiItemDialog.DIALOG_RESULT_CONNECT_SAVED_NETWORK) {
-                            // do nothing
-                            mAdapter.notifyDataSetChanged();
-                        } else if (result == WifiItemDialog.DIALOG_RESULT_CONNECT_NEW_NETWORK) {
-                            mSavedWifiList.add(0, data);
-                            mNearbyWifiList.remove(data);
-                            mAdapter.notifyDataSetChanged();
-                        } else if (result == WifiItemDialog.DIALOG_RESULT_REMOVE_NETWORK) {
-                            mSavedWifiList.remove(data);
-                            mNearbyWifiList.add(data);
-                            mAdapter.notifyDataSetChanged();
+                if(viewType == WifiRecyclerViewAdapter.VIEW_TYPE_SAVED_DATA
+                        || viewType == WifiRecyclerViewAdapter.VIEW_TYPE_NEARBY_DATA) {
+                    WifiItemDialog dialog = new WifiItemDialog(MainActivity.this, data);
+                    dialog.setOnDialogResultListener(new WifiItemDialog.OnDialogResultListener() {
+                        @Override
+                        public void onDialogResult(int result, WifiItemData data) {
+                            if (result == WifiItemDialog.DIALOG_RESULT_CONNECT_SAVED_NETWORK) {
+                                // do nothing
+                                mAdapter.notifyDataSetChanged();
+                            } else if (result == WifiItemDialog.DIALOG_RESULT_CONNECT_NEW_NETWORK) {
+                                mSavedWifiList.add(0, data);
+                                mNearbyWifiList.remove(data);
+                                mAdapter.notifyDataSetChanged();
+                            } else if (result == WifiItemDialog.DIALOG_RESULT_REMOVE_NETWORK) {
+                                mSavedWifiList.remove(data);
+                                mNearbyWifiList.add(data);
+                                mAdapter.notifyDataSetChanged();
+                            }
                         }
-                    }
-                });
-                dialog.show();*/
-
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_SSID, data.getSsid());
-                startActivity(intent);
+                    });
+                    dialog.show();
+                }
             }
         });
 

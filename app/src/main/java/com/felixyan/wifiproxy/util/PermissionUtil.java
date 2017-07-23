@@ -1,4 +1,4 @@
-package com.felixyan.wifiproxy;
+package com.felixyan.wifiproxy.util;
 
 import android.Manifest;
 import android.content.Context;

@@ -4,5 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="45dp"
+    android:textSize="@dimen/text_primary"
     android:textColor="@color/text_primary_dark"
-    android:textSize="@dimen/text_primary"/>
+    android:gravity="center"
+    android:text="@string/detail_proxy_add_new_manual_proxy"
+    android:background="?attr/selectableItemBackground"/>

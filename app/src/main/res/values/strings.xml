@@ -4,10 +4,12 @@
     <string name="switch_wifi">开启WIFI</string>
     <string name="list_connected">已连接/已保存的WIFI</string>
     <string name="list_available_networks">选取附近的WIFI</string>
+    <string name="list_proxy_format">代理 %s</string>
 
     <string name="hint_input_password">输入密码</string>
     <string name="dialog_button_connect">连接</string>
     <string name="dialog_button_cancel">取消</string>
+    <string name="dialog_button_save">保存</string>
     <string name="dialog_button_cancel_save">取消保存</string>
     <string name="dialog_button_close">好的</string>
 
@@ -20,6 +22,7 @@
     <string name="detail_proxy_none">无</string>
     <string name="detail_proxy_manual">手动</string>
     <string name="detail_proxy_proxy_auto_config">代理自动配置</string>
+    <string name="detail_proxy_add_new_manual_proxy">添加新的代理</string>
     <string name="detail_proxy_hostname">主机名</string>
     <string name="detail_proxy_port">端口</string>
     <string name="detail_proxy_bypass_for">不使用网址</string>
@@ -33,4 +36,11 @@
     <string name="detail_ip_prefix_length">前缀长度</string>
     <string name="detail_ip_dns1">DNS 1</string>
     <string name="detail_ip_dns2">DNS 2</string>
+
+    <string name="detail_general_signal_strength">信号强度</string>
+    <string name="detail_general_security">安全性</string>
+    <string name="detail_general_link_speed">连接速度</string>
+    <string name="detail_general_ip_address">IP地址</string>
+    <string name="detail_general_subnet_mask">子网掩码</string>
+    <string name="detail_general_gateway">路由器</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.felixyan.wifiproxy;
+package com.felixyan.wifiproxy.activity;
 
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;

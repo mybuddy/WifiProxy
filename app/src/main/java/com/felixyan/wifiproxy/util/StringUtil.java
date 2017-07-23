@@ -12,4 +12,12 @@ public class StringUtil {
     public static String getString(@StringRes int resId) {
         return App.getInstance().getString(resId);
     }
+
+    public static String getString(String format, Object... values) {
+        return String.format(format, values);
+    }
+
+    public static String getString(@StringRes int resId, Object... values) {
+        return getString(getString(resId), values);
+    }
 }

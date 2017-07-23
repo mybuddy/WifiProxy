@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg"
-    tools:context="com.felixyan.wifiproxy.MainActivity">
+    tools:context="com.felixyan.wifiproxy.activity.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
