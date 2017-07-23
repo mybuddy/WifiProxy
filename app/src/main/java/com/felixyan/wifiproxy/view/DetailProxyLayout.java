@@ -1,7 +1,9 @@
 package com.felixyan.wifiproxy.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AbsListView;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.felixyan.wifiproxy.R;
 import com.felixyan.wifiproxy.adapter.IViewWrapper;
@@ -96,7 +99,8 @@ public class DetailProxyLayout extends LinearLayout implements IViewWrapper<Wifi
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
                                            long id) {
-                return false;
+                showPopupMenu();
+                return true;
             }
         });
 
@@ -109,6 +113,23 @@ public class DetailProxyLayout extends LinearLayout implements IViewWrapper<Wifi
             }
         });
         mLvManual.addFooterView(footer);
+    }
+
+    private void showPopupMenu() {
+        new AlertDialog.Builder(getContext())
+                .setItems(R.array.manual_proxy_menu, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0) {
+                            ManualProxyDialog manualProxyDialog = new ManualProxyDialog(getContext());
+                            manualProxyDialog.show();
+                        } else if (which == 1) {
+                            Toast.makeText(getContext(), "delete", Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     @Override

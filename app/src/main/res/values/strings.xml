@@ -27,6 +27,8 @@
     <string name="detail_proxy_port">端口</string>
     <string name="detail_proxy_bypass_for">不使用网址</string>
     <string name="detail_proxy_pac_url">PAC网址</string>
+    <string name="detail_proxy_menu_edit">编辑</string>
+    <string name="detail_proxy_menu_delete">删除</string>
 
     <string name="detail_ip">IP设置</string>
     <string name="detail_ip_static">静态</string>

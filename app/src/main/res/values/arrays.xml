@@ -6,6 +6,11 @@
         <item>@string/detail_proxy_proxy_auto_config</item>
     </array>
 
+    <array name="manual_proxy_menu">
+        <item>@string/detail_proxy_menu_edit</item>
+        <item>@string/detail_proxy_menu_delete</item>
+    </array>
+
     <array name="ip_entry">
         <item>@string/detail_ip_dhcp</item>
         <item>@string/detail_ip_static</item>

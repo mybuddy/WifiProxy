@@ -27,6 +27,8 @@
     <string name="detail_proxy_port">Port</string>
     <string name="detail_proxy_bypass_for">Bypass for</string>
     <string name="detail_proxy_pac_url">PAC URL</string>
+    <string name="detail_proxy_menu_edit">Edit</string>
+    <string name="detail_proxy_menu_delete">Delete</string>
 
     <string name="detail_ip">IP SETTINGS</string>
     <string name="detail_ip_static">Static</string>
