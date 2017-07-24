@@ -1,6 +1,7 @@
 package com.felixyan.wifiproxy;
 
 import android.content.Context;
+import android.net.LinkAddress;
 import android.net.ProxyInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
@@ -10,6 +11,8 @@ import android.util.Log;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -376,5 +379,96 @@ public class WifiCenter {
         /* Use a Pac based proxy.
          */
         PAC
+    }
+
+    /*
+     * 获取/设置IP
+     */
+
+    /**
+     * 获取静态IP
+     *
+     * @param config
+     * @return
+     */
+    public static StaticIpConfiguration getStaticIpConfiguration(WifiConfiguration config) {
+        StaticIpConfiguration staticIpConfig = null;
+
+        try {
+            Method getHttpProxyMethod = WifiConfiguration.class.getMethod("getStaticIpConfiguration");
+            getHttpProxyMethod.setAccessible(true);
+            Object obj = getHttpProxyMethod.invoke(config);
+
+            Class clazz = Class.forName("android.net.StaticIpConfiguration");
+
+            staticIpConfig = new StaticIpConfiguration();
+            staticIpConfig.setIpAddress((LinkAddress) clazz.getField("ipAddress").get(obj));
+            staticIpConfig.setGateway((InetAddress) clazz.getField("gateway").get(obj));
+            staticIpConfig.setDnsServers((ArrayList<InetAddress>) clazz.getField("dnsServers").get(obj));
+            staticIpConfig.setDomains((String) clazz.getField("domains").get(obj));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return staticIpConfig;
+    }
+
+    /**
+     * 获取IP类型
+     *
+     * @param config
+     * @return
+     */
+    public static IpAssignment getIpAssignment(WifiConfiguration config) {
+        IpAssignment proxySettings = IpAssignment.UNASSIGNED;
+
+        /*try {
+            Method getProxySettingsMethod = WifiConfiguration.class.getMethod("getProxySettings");
+            getProxySettingsMethod.setAccessible(true);
+
+            Object settings = getProxySettingsMethod.invoke(config);
+            if(settings != null) {
+                proxySettings = ProxySettings.valueOf(settings.toString());
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }*/
+        // todo
+        return proxySettings;
+    }
+
+    public void setStaticIpConfiguration(StaticIpConfiguration staticIpConfiguration) {
+        //mIpConfiguration.setStaticIpConfiguration(staticIpConfiguration);
+        // todo
+    }
+
+    public void setIpAssignment(IpAssignment ipAssignment) {
+        //mIpConfiguration.ipAssignment = ipAssignment;
+        // todo
+    }
+
+    /**
+     * IP类型
+     */
+    public enum IpAssignment {
+        /* Use statically configured IP settings. Configuration can be accessed
+         * with staticIpConfiguration */
+        STATIC,
+        /* Use dynamically configured IP settigns */
+        DHCP,
+        /* no IP details are assigned, this is used to indicate
+         * that any existing IP settings should be retained */
+        UNASSIGNED
     }
 }
