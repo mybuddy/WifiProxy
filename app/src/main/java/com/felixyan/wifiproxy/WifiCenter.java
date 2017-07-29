@@ -367,16 +367,26 @@ public class WifiCenter {
      * 代理类型
      */
     public enum ProxySettings {
-        /* No proxy is to be used. Any existing proxy settings
-         * should be cleared. */
+        /**
+         * No proxy is to be used. Any existing proxy settings
+         * should be cleared.
+         */
         NONE,
-        /* Use statically configured proxy. Configuration can be accessed
-         * with httpProxy. */
+
+        /**
+         * Use statically configured proxy. Configuration can be accessed
+         * with httpProxy.
+         */
         STATIC,
-        /* no proxy details are assigned, this is used to indicate
-         * that any existing proxy settings should be retained */
+
+        /**
+         * no proxy details are assigned, this is used to indicate
+         * that any existing proxy settings should be retained
+         */
         UNASSIGNED,
-        /* Use a Pac based proxy.
+
+        /**
+         * Use a Pac based proxy.
          */
         PAC
     }
@@ -395,11 +405,11 @@ public class WifiCenter {
         StaticIpConfiguration staticIpConfig = null;
 
         try {
-            Method getHttpProxyMethod = WifiConfiguration.class.getMethod("getStaticIpConfiguration");
-            getHttpProxyMethod.setAccessible(true);
-            Object obj = getHttpProxyMethod.invoke(config);
+            Method method = WifiConfiguration.class.getMethod("getStaticIpConfiguration");
+            method.setAccessible(true);
 
             Class clazz = Class.forName("android.net.StaticIpConfiguration");
+            Object obj = method.invoke(config);
 
             staticIpConfig = new StaticIpConfiguration();
             staticIpConfig.setIpAddress((LinkAddress) clazz.getField("ipAddress").get(obj));
@@ -427,15 +437,15 @@ public class WifiCenter {
      * @return
      */
     public static IpAssignment getIpAssignment(WifiConfiguration config) {
-        IpAssignment proxySettings = IpAssignment.UNASSIGNED;
+        IpAssignment ipAssignment = IpAssignment.UNASSIGNED;
 
-        /*try {
-            Method getProxySettingsMethod = WifiConfiguration.class.getMethod("getProxySettings");
-            getProxySettingsMethod.setAccessible(true);
+        try {
+            Method getHttpProxyMethod = WifiConfiguration.class.getMethod("getIpAssignment");
+            getHttpProxyMethod.setAccessible(true);
 
-            Object settings = getProxySettingsMethod.invoke(config);
-            if(settings != null) {
-                proxySettings = ProxySettings.valueOf(settings.toString());
+            Object assignment = getHttpProxyMethod.invoke(config);
+            if(assignment != null) {
+                ipAssignment = IpAssignment.valueOf(assignment.toString());
             }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -443,32 +453,97 @@ public class WifiCenter {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        }*/
-        // todo
-        return proxySettings;
+        }
+
+        return ipAssignment;
     }
 
-    public void setStaticIpConfiguration(StaticIpConfiguration staticIpConfiguration) {
-        //mIpConfiguration.setStaticIpConfiguration(staticIpConfiguration);
-        // todo
+    /**
+     * 设置静态IP参数
+     *
+     * @param config
+     * @param staticIpConfiguration
+     */
+    public void setStaticIpConfiguration(WifiConfiguration config, StaticIpConfiguration staticIpConfiguration) {
+        try {
+            // 参数类型
+            Class clazz = Class.forName("android.net.StaticIpConfiguration");
+
+            // 参数值
+            Object obj = clazz.newInstance();
+            clazz.getField("ipAddress").set(obj, staticIpConfiguration.getIpAddress());
+            clazz.getField("gateway").set(obj, staticIpConfiguration.getGateway());
+            ((ArrayList<InetAddress>)(clazz.getField("dnsServers").get(obj))).addAll(staticIpConfiguration.getDnsServers());
+            clazz.getField("domains").set(obj, staticIpConfiguration.getDomains());
+
+            // 查找方法
+            Method method = WifiConfiguration.class.getDeclaredMethod("setStaticIpConfiguration", clazz);
+            method.setAccessible(true);
+
+            // 调用方法
+            method.invoke(config, obj);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setIpAssignment(IpAssignment ipAssignment) {
-        //mIpConfiguration.ipAssignment = ipAssignment;
-        // todo
+    /**
+     * 设置IP类型
+     *
+     * @param config
+     * @param ipAssignment
+     */
+    public void setIpAssignment(WifiConfiguration config, IpAssignment ipAssignment) {
+        try {
+            // 参数类型
+            Class clazz = Class.forName("android.net.IpConfiguration$IpAssignment");
+
+            // 查找方法
+            Method setProxyMethod = WifiConfiguration.class.getDeclaredMethod("setIpAssignment", clazz);
+            setProxyMethod.setAccessible(true);
+
+            // 调用方法
+            setProxyMethod.invoke(config, Enum.valueOf(clazz, ipAssignment.name()));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * IP类型
      */
     public enum IpAssignment {
-        /* Use statically configured IP settings. Configuration can be accessed
-         * with staticIpConfiguration */
+        /**
+         * Use statically configured IP settings. Configuration can be accessed
+         * with staticIpConfiguration
+         */
         STATIC,
-        /* Use dynamically configured IP settigns */
+
+        /**
+         * Use dynamically configured IP settigns
+         */
         DHCP,
-        /* no IP details are assigned, this is used to indicate
-         * that any existing IP settings should be retained */
+
+        /**
+         * no IP details are assigned, this is used to indicate
+         * that any existing IP settings should be retained
+         */
         UNASSIGNED
     }
 }
