@@ -10,7 +10,7 @@ import android.widget.SimpleAdapter;
 
 import com.felixyan.wifiproxy.R;
 import com.felixyan.wifiproxy.adapter.IViewWrapper;
-import com.felixyan.wifiproxy.model.GeneralInfo;
+import com.felixyan.wifiproxy.model.GeneralInfoWrapper;
 import com.felixyan.wifiproxy.model.WifiItemData;
 import com.felixyan.wifiproxy.util.StringUtil;
 
@@ -23,9 +23,10 @@ import java.util.Map;
  * Created by yanfei on 2017/7/21.
  */
 
-public class DetailGeneralLayout extends LinearLayout implements IViewWrapper<WifiItemData> {
+public class DetailGeneralLayout extends LinearLayout implements IDataView<GeneralInfoWrapper> {
     //private EditText mEtPassword;
     private ListView mRvWifiInfo;
+    private GeneralInfoWrapper mData;
 
     public DetailGeneralLayout(Context context) {
         super(context);
@@ -62,21 +63,19 @@ public class DetailGeneralLayout extends LinearLayout implements IViewWrapper<Wi
     }
 
     @Override
-    public void setData(int position, final WifiItemData data) {
+    public GeneralInfoWrapper getData() {
+        return mData;
+    }
+
+    @Override
+    public void setData(final GeneralInfoWrapper data) {
+        mData = data;
+
         if(data == null) {
             return;
         }
 
-        GeneralInfo info = new GeneralInfo();
-        info.setConnected(data.isConnected());
-        info.setLevel(data.getLevel());
-        info.setCapabilities("12345");
-        info.setSpeed(10);
-        info.setGateway("192.168.1.1");
-        info.setMask("255.255.255.0");
-        info.setIpAddress("192.168.1.10");
-
-        List<Map<String, String>> list = createAdapterData(info);
+        List<Map<String, String>> list = createAdapterData(data);
 
         SimpleAdapter adapter = new SimpleAdapter(getContext(),
                 list, R.layout.layout_detail_general_list_item,
@@ -84,7 +83,7 @@ public class DetailGeneralLayout extends LinearLayout implements IViewWrapper<Wi
         mRvWifiInfo.setAdapter(adapter);
     }
 
-    private List<Map<String, String>> createAdapterData(final GeneralInfo info) {
+    private List<Map<String, String>> createAdapterData(final GeneralInfoWrapper info) {
         List<Map<String, String>> list = new ArrayList<>();
         // 信号强度
         list.add(new HashMap<String, String>() {

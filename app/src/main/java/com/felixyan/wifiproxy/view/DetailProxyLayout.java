@@ -16,9 +16,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.felixyan.wifiproxy.R;
+import com.felixyan.wifiproxy.WifiCenter;
 import com.felixyan.wifiproxy.adapter.IViewWrapper;
 import com.felixyan.wifiproxy.dialog.ManualProxyDialog;
-import com.felixyan.wifiproxy.model.ProxyInfo;
+import com.felixyan.wifiproxy.model.ProxyInfoWrapper;
+import com.felixyan.wifiproxy.model.StaticProxy;
 import com.felixyan.wifiproxy.model.WifiItemData;
 
 import java.util.ArrayList;
@@ -28,14 +30,15 @@ import java.util.List;
  * Created by yanfei on 2017/7/21.
  */
 
-public class DetailProxyLayout extends LinearLayout implements IViewWrapper<WifiItemData> {
+public class DetailProxyLayout extends LinearLayout implements IDataView<ProxyInfoWrapper> {
     private Spinner mSpProxy;
     private ListView mLvManual;
     private View mPrlAuto;
     private EditText mEtProxyPacUrl;
+    private ProxyInfoWrapper mData;
 
-    private List<String> mManualProxyList = new ArrayList<>();
-    private ArrayAdapter<String> mManualProxyAdapter;
+    private List<StaticProxy> mManualProxyList = new ArrayList<>();
+    private ArrayAdapter<StaticProxy> mManualProxyAdapter;
 
     public DetailProxyLayout(Context context) {
         super(context);
@@ -138,13 +141,39 @@ public class DetailProxyLayout extends LinearLayout implements IViewWrapper<Wifi
     }
 
     @Override
-    public void setData(int position, WifiItemData data) {
-        ProxyInfo info = new ProxyInfo();
+    public ProxyInfoWrapper getData() {
+        return mData;
+    }
 
-        mManualProxyList.clear();
-        mManualProxyList.add("192.168.1.14 (my pc1)");
-        mManualProxyList.add("192.168.1.15 (my pc2)");
-        mManualProxyList.add("192.168.1.16 (my pc3)");
-        mManualProxyAdapter.notifyDataSetChanged();
+    @Override
+    public void setData(ProxyInfoWrapper data) {
+        mData = data;
+
+        if(data == null) {
+            return;
+        }
+
+        if(data.getType() == WifiCenter.ProxySettings.STATIC) {
+            mSpProxy.setSelection(1);
+            List<StaticProxy> staticProxyList = data.getStaticProxyList();
+            mManualProxyList.clear();
+            /*mManualProxyList.add("192.168.1.14 (my pc1)");
+            mManualProxyList.add("192.168.1.15 (my pc2)");
+            mManualProxyList.add("192.168.1.16 (my pc3)");*/
+            if(staticProxyList != null) {
+                mManualProxyList.addAll(staticProxyList);
+            }
+            mManualProxyAdapter.notifyDataSetChanged();
+
+            mLvManual.setVisibility(VISIBLE);
+            mPrlAuto.setVisibility(GONE);
+        } else if (data.getType() == WifiCenter.ProxySettings.PAC) {
+            mSpProxy.setSelection(2);
+            mEtProxyPacUrl.setText(data.getPacUrl());
+
+            mLvManual.setVisibility(GONE);
+            mPrlAuto.setVisibility(VISIBLE);
+        }
+
     }
 }

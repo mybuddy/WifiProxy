@@ -1,6 +1,7 @@
 package com.felixyan.wifiproxy;
 
 import android.content.Context;
+import android.net.DhcpInfo;
 import android.net.LinkAddress;
 import android.net.ProxyInfo;
 import android.net.wifi.ScanResult;
@@ -167,6 +168,10 @@ public class WifiCenter {
 
     public WifiInfo getConnectionInfo() {
         return mWifiManager.getConnectionInfo();
+    }
+
+    public DhcpInfo getDhcpInfo() {
+        return mWifiManager.getDhcpInfo();
     }
 
     public static boolean isSameSsid(String ssidA, String ssidB) {

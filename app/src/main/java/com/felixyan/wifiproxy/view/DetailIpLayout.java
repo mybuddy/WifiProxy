@@ -1,7 +1,6 @@
 package com.felixyan.wifiproxy.view;
 
 import android.content.Context;
-import android.net.wifi.WifiConfiguration;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,8 +12,7 @@ import android.widget.Spinner;
 import com.felixyan.wifiproxy.R;
 import com.felixyan.wifiproxy.StaticIpConfiguration;
 import com.felixyan.wifiproxy.WifiCenter;
-import com.felixyan.wifiproxy.adapter.IViewWrapper;
-import com.felixyan.wifiproxy.model.WifiItemData;
+import com.felixyan.wifiproxy.model.IpInfoWrapper;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ import java.util.ArrayList;
  * Created by yanfei on 2017/7/21.
  */
 
-public class DetailIpLayout extends LinearLayout implements IViewWrapper<WifiItemData>{
+public class DetailIpLayout extends LinearLayout implements IDataView<IpInfoWrapper> {
     private Spinner mSpIp;
     private View mPrlStaticIp;
     private EditText mEtIpAddress;
@@ -31,6 +29,7 @@ public class DetailIpLayout extends LinearLayout implements IViewWrapper<WifiIte
     private EditText mEtPrefixLength;
     private EditText mEtDns1;
     private EditText mEtDns2;
+    private IpInfoWrapper mData;
 
     public DetailIpLayout(Context context) {
         super(context);
@@ -67,7 +66,7 @@ public class DetailIpLayout extends LinearLayout implements IViewWrapper<WifiIte
         mSpIp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0) {
+                if (position == 0) {
                     // DHCP
                     mPrlStaticIp.setVisibility(GONE);
                 } else if (position == 1) {
@@ -89,31 +88,41 @@ public class DetailIpLayout extends LinearLayout implements IViewWrapper<WifiIte
     }
 
     @Override
-    public void setData(int position, WifiItemData data) {
-        //IpInfo info = new IpInfo();
-        if(data.isConnected() || data.isSaved()) {
-            WifiConfiguration config = WifiCenter.getInstance(getContext()).getSsidConfig(data.getSsid());
-            if(config != null) {
-                WifiCenter.IpAssignment ipAssignment = WifiCenter.getIpAssignment(config);
-                if(ipAssignment == WifiCenter.IpAssignment.STATIC) {
-                    mSpIp.setSelection(1);
-                    StaticIpConfiguration staticIpConfiguration = WifiCenter.getStaticIpConfiguration(config);
-                    if(staticIpConfiguration != null) {
-                        mEtIpAddress.setText(staticIpConfiguration.getIpAddress().getAddress().getHostAddress());
-                        mEtGateway.setText(staticIpConfiguration.getGateway().getHostAddress());
-                        mEtPrefixLength.setText(staticIpConfiguration.getIpAddress().getPrefixLength());
-                        ArrayList<InetAddress> dnsServers = staticIpConfiguration.getDnsServers();
-                        if(!dnsServers.isEmpty()) {
-                            mEtDns1.setText(dnsServers.get(0).getHostAddress());
-                            if(dnsServers.size() > 1) {
-                                mEtDns2.setText(dnsServers.get(1).getHostAddress());
-                            }
-                        }
+    public IpInfoWrapper getData() {
+        return mData;
+    }
+
+    @Override
+    public void setData(IpInfoWrapper data) {
+        mData = data;
+
+        if (data == null) {
+            return;
+        }
+        if (data.getType() == WifiCenter.IpAssignment.STATIC) {
+            // Static
+            mSpIp.setSelection(1);
+            StaticIpConfiguration staticIpConfiguration = data.getStaticIpConfiguration();
+            if (staticIpConfiguration != null) {
+                mEtIpAddress.setText(
+                        staticIpConfiguration.getIpAddress().getAddress().getHostAddress());
+                mEtGateway.setText(staticIpConfiguration.getGateway().getHostAddress());
+                mEtPrefixLength.setText(staticIpConfiguration.getIpAddress().getPrefixLength());
+                ArrayList<InetAddress> dnsServers = staticIpConfiguration.getDnsServers();
+                if (!dnsServers.isEmpty()) {
+                    mEtDns1.setText(dnsServers.get(0).getHostAddress());
+                    if (dnsServers.size() > 1) {
+                        mEtDns2.setText(dnsServers.get(1).getHostAddress());
                     }
-                } else if (ipAssignment == WifiCenter.IpAssignment.DHCP) {
-                    mSpIp.setSelection(0);
                 }
             }
+
+            mPrlStaticIp.setVisibility(VISIBLE);
+        } else if (data.getType() == WifiCenter.IpAssignment.DHCP) {
+            // DHCP
+            mSpIp.setSelection(0);
+
+            mPrlStaticIp.setVisibility(GONE);
         }
     }
 }

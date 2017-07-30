@@ -13,11 +13,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.felixyan.wifiproxy.R;
-import com.felixyan.wifiproxy.adapter.IViewWrapper;
+import com.felixyan.wifiproxy.model.WifiDetail;
 import com.felixyan.wifiproxy.model.WifiItemData;
 import com.felixyan.wifiproxy.view.DetailGeneralLayout;
 import com.felixyan.wifiproxy.view.DetailIpLayout;
 import com.felixyan.wifiproxy.view.DetailProxyLayout;
+import com.felixyan.wifiproxy.view.IDataView;
 
 public class DetailActivity extends AppCompatActivity {
     //public static final String EXTRA_SSID = "extra_ssid";
@@ -25,8 +26,9 @@ public class DetailActivity extends AppCompatActivity {
 
     private RadioGroup mRgTab;
     private FrameLayout mFlContainer;
-    private SparseArray<IViewWrapper<WifiItemData>> mContentLayoutArray = new SparseArray<>(3);
+    private SparseArray<IDataView> mContentLayoutArray = new SparseArray<>(3);
     private WifiItemData mData;
+    private WifiDetail mWifiDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class DetailActivity extends AppCompatActivity {
             mData = intent.getParcelableExtra(EXTRA_WIFI_INFO);
             if(mData != null) {
                 getSupportActionBar().setTitle(mData.getSsid());
+                mWifiDetail = new WifiDetail(mData);
             }
         }
 
@@ -54,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
         mRgTab.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                IViewWrapper<WifiItemData> contentLayout = mContentLayoutArray.get(checkedId);
+                IDataView contentLayout = mContentLayoutArray.get(checkedId);
                 int index = contentLayout != null ? mContentLayoutArray.indexOfKey(checkedId) : -1;
 
                 for(int i = 0; i < mContentLayoutArray.size(); i++) {
@@ -67,17 +70,20 @@ public class DetailActivity extends AppCompatActivity {
                     switch (checkedId) {
                         case R.id.rbGeneral:
                             contentLayout = new DetailGeneralLayout(DetailActivity.this);
+                            contentLayout.setData(mWifiDetail.getGeneralInfoWrapper());
                             break;
                         case R.id.rbProxy:
                             contentLayout = new DetailProxyLayout(DetailActivity.this);
+                            contentLayout.setData(mWifiDetail.getProxyInfoWrapper());
                             break;
                         case R.id.rbIp:
                             contentLayout = new DetailIpLayout(DetailActivity.this);
+                            contentLayout.setData(mWifiDetail.getIpInfoWrapper());
                             break;
                         default:
                             return;
                     }
-                    contentLayout.setData(0, mData);
+
                     mContentLayoutArray.put(checkedId, contentLayout);
                     mFlContainer.addView(contentLayout.getView());
                 } else {

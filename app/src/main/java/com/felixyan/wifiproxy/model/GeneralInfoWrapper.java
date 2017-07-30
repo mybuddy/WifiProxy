@@ -4,7 +4,7 @@ package com.felixyan.wifiproxy.model;
  * Created by yanfei on 2017/7/21.
  */
 
-public class GeneralInfo {
+public class GeneralInfoWrapper {
     private int level;
     private String capabilities;
     private boolean isConnected;
