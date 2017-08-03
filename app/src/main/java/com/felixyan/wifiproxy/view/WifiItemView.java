@@ -117,7 +117,7 @@ public class WifiItemView extends FrameLayout implements IViewWrapper<WifiItemDa
             mSwitchProxy.setVisibility(GONE);
         }
 
-        if (WifiCenter.OPEN.equals(WifiCenter.getSecurity(data.getCapabilities().name()))) {
+        if (WifiCenter.OPEN.equals(WifiCenter.getSecurity(data.getCapabilities()))) {
             mIvSignal.setImageResource(R.drawable.signal_wifi_bar);
         } else {
             mIvSignal.setImageResource(R.drawable.signal_wifi_bar_lock);

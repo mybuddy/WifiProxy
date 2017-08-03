@@ -17,6 +17,13 @@
     <string name="detail_button_save">Save</string>
 
     <string name="detail_general">GENERAL</string>
+    <string name="detail_general_signal_strength">Signal strength</string>
+    <string name="detail_general_signal_strength_format">%ddBm</string>
+    <string name="detail_general_security">Security</string>
+    <string name="detail_general_link_speed">Link speed</string>
+    <string name="detail_general_ip_address">IP address</string>
+    <string name="detail_general_subnet_mask">Subnet mask</string>
+    <string name="detail_general_gateway">Gateway</string>
 
     <string name="detail_proxy">PROXY</string>
     <string name="detail_proxy_none">None</string>
@@ -38,11 +45,4 @@
     <string name="detail_ip_prefix_length">Prefix length</string>
     <string name="detail_ip_dns1">DNS1</string>
     <string name="detail_ip_dns2">DNS2</string>
-
-    <string name="detail_general_signal_strength">Signal strength</string>
-    <string name="detail_general_security">Security</string>
-    <string name="detail_general_link_speed">Link speed</string>
-    <string name="detail_general_ip_address">IP address</string>
-    <string name="detail_general_subnet_mask">Subnet mask</string>
-    <string name="detail_general_gateway">Gateway</string>
 </resources>

@@ -19,7 +19,7 @@ public class ScriptSQLiteHelper extends SQLiteOpenHelper {
     private static final String TAG = ScriptSQLiteHelper.class.getSimpleName();
     private final Context mContext;
     private final String mName;
-    private String mCreatePathFormat;
+    private String mCreatePath;
     private String mUpgradePathFormat;
 
     public ScriptSQLiteHelper(Context context, String name,
@@ -33,14 +33,14 @@ public class ScriptSQLiteHelper extends SQLiteOpenHelper {
         } else {
             mContext = context;
             mName = name;
-            mCreatePathFormat = "databases/" + name + "_create.sql";
+            mCreatePath = "databases/" + name + "_create.sql";
             mUpgradePathFormat = "databases/" + name + "_upgrade_%s-%s.sql";
         }
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(mCreatePathFormat);
+        executeSqlFile(db, mCreatePath);
     }
 
     @Override
@@ -56,22 +56,8 @@ public class ScriptSQLiteHelper extends SQLiteOpenHelper {
             Collections.sort(paths, new VersionComparator());
 
             for(String path : paths) {
-                try {
-                    Log.w(TAG, "processing upgrade: " + path);
-                    InputStream e = mContext.getAssets().open(path);
-                    String sql = Utils.convertStreamToString(e);
-                    if(sql != null) {
-                        // SQL逐语句执行
-                        List<String> cmds = Utils.splitSqlScript(sql, ';');
-                        for(String cmd : cmds) {
-                            if(!cmd.trim().isEmpty()) {
-                                db.execSQL(cmd);
-                            }
-                        }
-                    }
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                Log.w(TAG, "processing upgrade: " + path);
+                executeSqlFile(db, path);
             }
 
             Log.w(TAG, "Successfully upgraded database " + mName + " from version " + oldVersion + " to " + newVersion);
@@ -121,6 +107,30 @@ public class ScriptSQLiteHelper extends SQLiteOpenHelper {
 
         if(a >= baseVersion) {
             getUpgradeFilePaths(baseVersion, a, b, paths);
+        }
+    }
+
+    /**
+     * 执行SQL脚本文件
+     * @param db
+     * @param path
+     */
+    private void executeSqlFile(SQLiteDatabase db, String path) {
+        InputStream is = null;
+        try {
+            is = mContext.getAssets().open(path);
+            String sql = Utils.convertStreamToString(is);
+            if(sql != null) {
+                // SQL逐语句执行
+                List<String> cmds = Utils.splitSqlScript(sql, ';');
+                for(String cmd : cmds) {
+                    if(!cmd.trim().isEmpty()) {
+                        db.execSQL(cmd);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

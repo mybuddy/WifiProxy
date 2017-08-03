@@ -24,5 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="15dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:listSelector="@android:color/transparent"/>
 </merge>

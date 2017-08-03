@@ -58,7 +58,7 @@ public class WifiDetail {
         GeneralInfoWrapper info = new GeneralInfoWrapper();
         info.setConnected(data.isConnected());
         info.setLevel(data.getLevel());
-        info.setCapabilities(data.getCapabilities().name());
+        info.setCapabilities(data.getCapabilities());
         if(data.isConnected()) {
             WifiInfo wifiInfo = wifiCenter.getConnectionInfo();
             DhcpInfo dhcpInfo = wifiCenter.getDhcpInfo();

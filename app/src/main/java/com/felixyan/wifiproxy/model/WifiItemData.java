@@ -17,7 +17,7 @@ public class WifiItemData implements Parcelable{
     private boolean isProxyOn;
     private String proxy;
     private int level; // 信号强度
-    private WifiCenter.WifiCipherType capabilities; // 安全性
+    private String capabilities; // 安全性
     private int frequency;
 
     //private ScanResult scanResult; // 扫描结果
@@ -35,6 +35,7 @@ public class WifiItemData implements Parcelable{
         isProxyOn = in.readByte() != 0;
         proxy = in.readString();
         level = in.readInt();
+        capabilities = in.readString();
         frequency = in.readInt();
     }
 
@@ -106,17 +107,17 @@ public class WifiItemData implements Parcelable{
         this.level = level;
     }
 
-    public WifiCenter.WifiCipherType getCapabilities() {
+    public String getCapabilities() {
         return capabilities;
     }
 
-    public void setCapabilities(WifiCenter.WifiCipherType capabilities) {
+    public void setCapabilities(String capabilities) {
         this.capabilities = capabilities;
     }
 
-    public void setCapabilities(String capabilities) {
-        this.capabilities = WifiCenter.WifiCipherType.convert(capabilities);
-    }
+    /*public void setCapabilities(String capabilities) {
+        this.capabilities = capabilities;
+    }*/
 
     public int getFrequency() {
         return frequency;
@@ -140,6 +141,7 @@ public class WifiItemData implements Parcelable{
         dest.writeByte((byte) (isProxyOn ? 1 : 0));
         dest.writeString(proxy);
         dest.writeInt(level);
+        dest.writeString(capabilities);
         dest.writeInt(frequency);
     }
 }

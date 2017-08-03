@@ -104,7 +104,7 @@ public class WifiCenter {
         return networkId != -1 && mWifiManager.removeNetwork(networkId);
     }
 
-    public WifiConfiguration createWifiConfig(String ssid, String password, WifiCipherType type) {
+    public WifiConfiguration createWifiConfig(String ssid, String password, String capabilities) {
         WifiConfiguration config = new WifiConfiguration();
         config.allowedAuthAlgorithms.clear();
         config.allowedGroupCiphers.clear();
@@ -113,6 +113,7 @@ public class WifiCenter {
         config.allowedProtocols.clear();
         config.SSID = "\"" + ssid + "\"";
 
+        WifiCipherType type = WifiCipherType.convert(capabilities);
         switch (type) {
             case WIFICIPHER_NOPASS:
                 config.wepKeys[0] = "";
@@ -141,8 +142,8 @@ public class WifiCenter {
         return config;
     }
 
-    public boolean connect(String ssid, String password, WifiCipherType type) {
-        WifiConfiguration config = createWifiConfig(ssid, password, type);
+    public boolean connect(String ssid, String password, String capabilities) {
+        WifiConfiguration config = createWifiConfig(ssid, password, capabilities);
         if(config != null) {
             return connect(config);
         }

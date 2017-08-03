@@ -1,6 +1,7 @@
 package com.felixyan.wifiproxy.view;
 
 import android.content.Context;
+import android.net.wifi.WifiInfo;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,9 +10,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.felixyan.wifiproxy.R;
-import com.felixyan.wifiproxy.adapter.IViewWrapper;
 import com.felixyan.wifiproxy.model.GeneralInfoWrapper;
-import com.felixyan.wifiproxy.model.WifiItemData;
 import com.felixyan.wifiproxy.util.StringUtil;
 
 import java.util.ArrayList;
@@ -89,7 +88,7 @@ public class DetailGeneralLayout extends LinearLayout implements IDataView<Gener
         list.add(new HashMap<String, String>() {
             {
                 put("name", StringUtil.getString(R.string.detail_general_signal_strength));
-                put("value", info.getLevel() + "");
+                put("value", StringUtil.getString(R.string.detail_general_signal_strength_format, info.getLevel()));
             }
         });
         // 安全性
@@ -105,7 +104,7 @@ public class DetailGeneralLayout extends LinearLayout implements IDataView<Gener
             list.add(new HashMap<String, String>() {
                 {
                     put("name", StringUtil.getString(R.string.detail_general_link_speed));
-                    put("value", info.getSpeed() + "");
+                    put("value", info.getSpeed() + WifiInfo.LINK_SPEED_UNITS);
                 }
             });
             // IP地址
