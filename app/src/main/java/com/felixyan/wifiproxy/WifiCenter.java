@@ -6,6 +6,7 @@ import android.net.LinkAddress;
 import android.net.ProxyInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiEnterpriseConfig;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -104,7 +105,7 @@ public class WifiCenter {
         return networkId != -1 && mWifiManager.removeNetwork(networkId);
     }
 
-    public WifiConfiguration createWifiConfig(String ssid, String password, String capabilities) {
+    public WifiConfiguration createWifiConfig(String ssid, String password, String capabilities, WifiEnterpriseConfig eapConfig) {
         WifiConfiguration config = new WifiConfiguration();
         config.allowedAuthAlgorithms.clear();
         config.allowedGroupCiphers.clear();
@@ -135,6 +136,11 @@ public class WifiCenter {
                 config.preSharedKey = "\"" + password + "\"";
                 config.hiddenSSID = true;
                 break;
+            case WIFICIPHER_EAP:
+                config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_EAP);
+                config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.IEEE8021X);
+                config.enterpriseConfig = eapConfig;
+                break;
             default:
                 return null;
         }
@@ -142,8 +148,8 @@ public class WifiCenter {
         return config;
     }
 
-    public boolean connect(String ssid, String password, String capabilities) {
-        WifiConfiguration config = createWifiConfig(ssid, password, capabilities);
+    public boolean connect(String ssid, String password, String capabilities, WifiEnterpriseConfig eapConfig) {
+        WifiConfiguration config = createWifiConfig(ssid, password, capabilities, eapConfig);
         if(config != null) {
             return connect(config);
         }
@@ -355,16 +361,21 @@ public class WifiCenter {
         /*[WPA-PSK-CCMP][WPA2-PSK-CCMP][ESS]*/
         WIFICIPHER_WEP,
         WIFICIPHER_WPA,
+        WIFICIPHER_EAP,
         WIFICIPHER_NOPASS,
         WIFICIPHER_INVALID;
 
         public static WifiCipherType convert(String name) {
+            if(name.contains("EAP")) {
+                return WIFICIPHER_EAP;
+            }
             if(name.contains("WEP")) {
                 return WIFICIPHER_WEP;
             }
             if(name.contains("WPA")) {
                 return WIFICIPHER_WPA;
             }
+
             return WIFICIPHER_NOPASS;
         }
     }

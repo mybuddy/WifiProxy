@@ -2,6 +2,7 @@ package com.felixyan.wifiproxy.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.wifi.WifiEnterpriseConfig;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -101,8 +102,12 @@ public class WifiItemDialog extends AlertDialog implements DialogInterface.OnCli
         boolean connectSucceed = false;
         if(!mWifiItemData.isConnected()) {
             if (!mWifiItemData.isSaved()) {
+                WifiEnterpriseConfig eapConfig = new WifiEnterpriseConfig();
+                eapConfig.setIdentity("");
+                eapConfig.setPassword("");
+                eapConfig.setEapMethod(WifiEnterpriseConfig.Eap.PEAP);
                 connectSucceed = WifiCenter.getInstance(getContext()).connect(mWifiItemData.getSsid(),
-                        mEtPassword.getText().toString(), mWifiItemData.getCapabilities());
+                        mEtPassword.getText().toString(), mWifiItemData.getCapabilities(), eapConfig);
             } else {
                 connectSucceed = WifiCenter.getInstance(getContext()).connect(mWifiItemData.getNetworkId());
             }
