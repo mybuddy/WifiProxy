@@ -1,4 +1,4 @@
-CREATE TABLE static_proxy (
+CREATE TABLE manual_proxy (
     _id INTEGER PRIMARY KEY AUTOINCREMENT,
     ssid TEXT,
     hostname TEXT,

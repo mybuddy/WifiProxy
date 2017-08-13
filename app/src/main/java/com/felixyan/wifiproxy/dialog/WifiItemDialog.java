@@ -18,14 +18,13 @@ import com.felixyan.wifiproxy.util.StringUtil;
  * Created by yanfei on 2017/7/11.
  */
 
-public class WifiItemDialog extends AlertDialog implements DialogInterface.OnClickListener{
+public abstract class WifiItemDialog extends AlertDialog implements DialogInterface.OnClickListener{
     public static final int DIALOG_RESULT_NOTHING_CHANGED = -1;
     public static final int DIALOG_RESULT_CONNECT_SAVED_NETWORK = 0;
     public static final int DIALOG_RESULT_CONNECT_NEW_NETWORK = 1;
     public static final int DIALOG_RESULT_REMOVE_NETWORK = 2;
 
     private WifiItemData mWifiItemData;
-    private EditText mEtPassword;
     private OnDialogResultListener mOnDialogResultListener;
 
     public WifiItemDialog(@NonNull Context context, WifiItemData data) {
@@ -33,6 +32,22 @@ public class WifiItemDialog extends AlertDialog implements DialogInterface.OnCli
 
         mWifiItemData = data;
         initView();
+    }
+
+    /**
+     * 获取布局View
+     * @return
+     */
+    protected abstract View getLayoutView();
+
+    /**
+     * 连接网络
+     * @return
+     */
+    protected abstract boolean connectNetwork();
+
+    protected WifiItemData getData() {
+        return mWifiItemData;
     }
 
     public OnDialogResultListener getOnDialogResultListener() {
@@ -49,14 +64,10 @@ public class WifiItemDialog extends AlertDialog implements DialogInterface.OnCli
 
         if(!mWifiItemData.isConnected()) {
             if(!mWifiItemData.isSaved()) {
-                View view = LayoutInflater.from(getContext()).inflate(
-                        R.layout.layout_dialog_unconnected, null);
-                mEtPassword = (EditText) view.findViewById(R.id.etPassword);
-                setView(view);
+                setView(getLayoutView());
             } else {
                 setButton(BUTTON_NEUTRAL, StringUtil.getString(R.string.dialog_button_cancel_save), this);
             }
-
             setButton(BUTTON_POSITIVE, StringUtil.getString(R.string.dialog_button_connect), this);
             setButton(BUTTON_NEGATIVE, StringUtil.getString(R.string.dialog_button_cancel), this);
         } else {
@@ -95,24 +106,6 @@ public class WifiItemDialog extends AlertDialog implements DialogInterface.OnCli
             mOnDialogResultListener.onDialogResult(result, mWifiItemData);
         }
         dismiss();
-    }
-
-    private boolean connectNetwork() {
-        // 连接
-        boolean connectSucceed = false;
-        if(!mWifiItemData.isConnected()) {
-            if (!mWifiItemData.isSaved()) {
-                WifiEnterpriseConfig eapConfig = new WifiEnterpriseConfig();
-                eapConfig.setIdentity("");
-                eapConfig.setPassword("");
-                eapConfig.setEapMethod(WifiEnterpriseConfig.Eap.PEAP);
-                connectSucceed = WifiCenter.getInstance(getContext()).connect(mWifiItemData.getSsid(),
-                        mEtPassword.getText().toString(), mWifiItemData.getCapabilities(), eapConfig);
-            } else {
-                connectSucceed = WifiCenter.getInstance(getContext()).connect(mWifiItemData.getNetworkId());
-            }
-        }
-        return connectSucceed;
     }
 
     private boolean removeNetwork() {

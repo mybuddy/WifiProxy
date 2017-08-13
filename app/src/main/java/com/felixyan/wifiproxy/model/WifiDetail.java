@@ -75,35 +75,36 @@ public class WifiDetail {
     private void setProxyInfoWrapper(String ssid, WifiConfiguration config) {
         // 代理配置
         ProxyInfoWrapper proxyInfoWrapper = new ProxyInfoWrapper();
+        proxyInfoWrapper.setSsid(ssid);
         WifiCenter.ProxySettings settings = WifiCenter.getProxySettings(config);
         proxyInfoWrapper.setType(settings);
         ProxyInfo proxyInfo = WifiCenter.getHttpProxy(config);
 
-        List<StaticProxy> staticProxyList = StaticProxy.getList(ssid);
+        List<ManualProxy> manualProxyList = ManualProxy.getList(ssid);
         if(settings == WifiCenter.ProxySettings.STATIC) {
-            StaticProxy currentStaticProxy = new StaticProxy();
-            currentStaticProxy.setSsid(ssid);
-            currentStaticProxy.setHostname(proxyInfo.getHost());
-            currentStaticProxy.setPort(proxyInfo.getPort());
-            currentStaticProxy.setExclusionHosts(proxyInfo.getExclusionList());
-            currentStaticProxy.setInUse(true);
+            ManualProxy currentManualProxy = new ManualProxy();
+            currentManualProxy.setSsid(ssid);
+            currentManualProxy.setHostname(proxyInfo.getHost());
+            currentManualProxy.setPort(proxyInfo.getPort());
+            currentManualProxy.setExclusionHosts(proxyInfo.getExclusionList());
+            currentManualProxy.setInUse(true);
             boolean contains = false;
-            if(staticProxyList != null) {
-                for (StaticProxy proxy : staticProxyList) {
-                    if (currentStaticProxy.equals(proxy)) {
+            if(manualProxyList != null) {
+                for (ManualProxy proxy : manualProxyList) {
+                    if (currentManualProxy.equals(proxy)) {
                         proxy.setInUse(true);
                         contains = true;
                         break;
                     }
                 }
             } else {
-                staticProxyList = new ArrayList<>();
+                manualProxyList = new ArrayList<>();
             }
             if(!contains) {
-                staticProxyList.add(0, currentStaticProxy);
+                manualProxyList.add(0, currentManualProxy);
             }
         }
-        proxyInfoWrapper.setStaticProxyList(staticProxyList);
+        proxyInfoWrapper.setManualProxyList(manualProxyList);
 
         if(settings == WifiCenter.ProxySettings.PAC) {
             proxyInfoWrapper.setPacUrl(proxyInfo.getPacFileUrl().toString());

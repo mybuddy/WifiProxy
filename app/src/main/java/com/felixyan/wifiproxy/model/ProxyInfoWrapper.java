@@ -2,6 +2,7 @@ package com.felixyan.wifiproxy.model;
 
 import com.felixyan.wifiproxy.WifiCenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,11 +10,20 @@ import java.util.List;
  */
 
 public class ProxyInfoWrapper {
+    private String ssid;
     private WifiCenter.ProxySettings type;
-    // static
-    private List<StaticProxy> staticProxyList;
+    // manual
+    private List<ManualProxy> manualProxyList;
     // pac
     private String pacUrl;
+
+    public String getSsid() {
+        return ssid;
+    }
+
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
+    }
 
     public WifiCenter.ProxySettings getType() {
         return type;
@@ -23,12 +33,19 @@ public class ProxyInfoWrapper {
         this.type = type;
     }
 
-    public List<StaticProxy> getStaticProxyList() {
-        return this.staticProxyList;
+    public List<ManualProxy> getManualProxyList() {
+        return this.manualProxyList;
     }
 
-    public void setStaticProxyList(List<StaticProxy> staticProxyList) {
-        this.staticProxyList = staticProxyList;
+    public void setManualProxyList(List<ManualProxy> manualProxyList) {
+        this.manualProxyList = manualProxyList;
+    }
+
+    public void addManualProxy(ManualProxy proxy) {
+        if(manualProxyList == null) {
+            manualProxyList = new ArrayList<>();
+        }
+        manualProxyList.add(proxy);
     }
 
     public String getPacUrl() {

@@ -13,6 +13,13 @@
     <string name="dialog_button_cancel_save">Forget</string>
     <string name="dialog_button_close">OK</string>
 
+    <string name="dialog_enterprise_eap_method_label">EAP METHOD</string>
+    <string name="dialog_enterprise_phase2_authentication_label">PHASE 2 AUTHENTICATION</string>
+    <string name="dialog_enterprise_ca_certificate_label">CA CERTIFICATE</string>
+    <string name="dialog_enterprise_identity_label">Identity</string>
+    <string name="dialog_enterprise_anonymous_identity_label">Anonymous identity</string>
+    <string name="dialog_enterprise_password_label">Password</string>
+
     <string name="detail_button_close">Close</string>
     <string name="detail_button_save">Save</string>
 

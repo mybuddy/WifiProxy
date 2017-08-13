@@ -17,11 +17,9 @@ import android.widget.Toast;
 
 import com.felixyan.wifiproxy.R;
 import com.felixyan.wifiproxy.WifiCenter;
-import com.felixyan.wifiproxy.adapter.IViewWrapper;
 import com.felixyan.wifiproxy.dialog.ManualProxyDialog;
 import com.felixyan.wifiproxy.model.ProxyInfoWrapper;
-import com.felixyan.wifiproxy.model.StaticProxy;
-import com.felixyan.wifiproxy.model.WifiItemData;
+import com.felixyan.wifiproxy.model.ManualProxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +28,16 @@ import java.util.List;
  * Created by yanfei on 2017/7/21.
  */
 
-public class DetailProxyLayout extends LinearLayout implements IDataView<ProxyInfoWrapper> {
+public class DetailProxyLayout extends LinearLayout
+        implements IDataView<ProxyInfoWrapper>, ManualProxyDialog.OnDialogButtonClickListener {
     private Spinner mSpProxy;
     private ListView mLvManual;
     private View mPrlAuto;
     private EditText mEtProxyPacUrl;
     private ProxyInfoWrapper mData;
 
-    private List<StaticProxy> mManualProxyList = new ArrayList<>();
-    private ArrayAdapter<StaticProxy> mManualProxyAdapter;
+    private List<ManualProxy> mManualProxyList = new ArrayList<>();
+    private ArrayAdapter<ManualProxy> mManualProxyAdapter;
 
     public DetailProxyLayout(Context context) {
         super(context);
@@ -74,14 +73,20 @@ public class DetailProxyLayout extends LinearLayout implements IDataView<ProxyIn
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        // NONE
+                        mData.setType(WifiCenter.ProxySettings.NONE);
                         mLvManual.setVisibility(GONE);
                         mPrlAuto.setVisibility(GONE);
                         break;
                     case 1:
+                        // 手动
+                        mData.setType(WifiCenter.ProxySettings.STATIC);
                         mLvManual.setVisibility(VISIBLE);
                         mPrlAuto.setVisibility(GONE);
                         break;
                     case 2:
+                        // PAC
+                        mData.setType(WifiCenter.ProxySettings.PAC);
                         mLvManual.setVisibility(GONE);
                         mPrlAuto.setVisibility(VISIBLE);
                         break;
@@ -94,10 +99,12 @@ public class DetailProxyLayout extends LinearLayout implements IDataView<ProxyIn
             }
         });
 
+        // 代理列表
         mLvManual.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         mManualProxyAdapter = new ArrayAdapter<>(getContext(), R.layout.layout_detail_proxy_list_item, R.id.ctvItem, mManualProxyList);
         mLvManual.setAdapter(mManualProxyAdapter);
 
+        // 长按菜单
         mLvManual.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
@@ -107,17 +114,34 @@ public class DetailProxyLayout extends LinearLayout implements IDataView<ProxyIn
             }
         });
 
+        // 添加新的代理
         View footer = inflate(getContext(), R.layout.layout_detail_proxy_list_item_footer, null);
         footer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ManualProxyDialog dialog = new ManualProxyDialog(getContext());
+                dialog.setOnDialogButtonClickListener(DetailProxyLayout.this);
                 dialog.show();
             }
         });
         mLvManual.addFooterView(footer);
     }
 
+    @Override
+    public void onPositiveButtonClick(ManualProxy proxy) {
+        mManualProxyList.add(proxy);
+        mManualProxyAdapter.notifyDataSetChanged();
+        mLvManual.setItemChecked(mManualProxyList.size() - 1, true);
+
+        if(mData != null) {
+            proxy.setSsid(mData.getSsid());
+            mData.addManualProxy(proxy);
+        }
+    }
+
+    /**
+     * 显示长按菜单
+     */
     private void showPopupMenu() {
         new AlertDialog.Builder(getContext())
                 .setItems(R.array.manual_proxy_menu, new DialogInterface.OnClickListener() {
@@ -155,13 +179,11 @@ public class DetailProxyLayout extends LinearLayout implements IDataView<ProxyIn
 
         if(data.getType() == WifiCenter.ProxySettings.STATIC) {
             mSpProxy.setSelection(1);
-            List<StaticProxy> staticProxyList = data.getStaticProxyList();
+            List<ManualProxy> manualProxyList = data.getManualProxyList();
             mManualProxyList.clear();
-            /*mManualProxyList.add("192.168.1.14 (my pc1)");
-            mManualProxyList.add("192.168.1.15 (my pc2)");
-            mManualProxyList.add("192.168.1.16 (my pc3)");*/
-            if(staticProxyList != null) {
-                mManualProxyList.addAll(staticProxyList);
+
+            if(manualProxyList != null) {
+                mManualProxyList.addAll(manualProxyList);
             }
             mManualProxyAdapter.notifyDataSetChanged();
 
@@ -174,6 +196,5 @@ public class DetailProxyLayout extends LinearLayout implements IDataView<ProxyIn
             mLvManual.setVisibility(GONE);
             mPrlAuto.setVisibility(VISIBLE);
         }
-
     }
 }

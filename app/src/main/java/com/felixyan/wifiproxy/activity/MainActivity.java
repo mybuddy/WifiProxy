@@ -23,6 +23,7 @@ import com.felixyan.wifiproxy.R;
 import com.felixyan.wifiproxy.WifiCenter;
 import com.felixyan.wifiproxy.adapter.OnListItemClickListener;
 import com.felixyan.wifiproxy.adapter.WifiRecyclerViewAdapter;
+import com.felixyan.wifiproxy.dialog.CommonWifiItemDialog;
 import com.felixyan.wifiproxy.dialog.WifiItemDialog;
 import com.felixyan.wifiproxy.model.WifiItemData;
 import com.felixyan.wifiproxy.util.PermissionUtil;
@@ -78,7 +79,7 @@ public class MainActivity extends AbstractActivity {
             public void onItemClick(View v, int viewType, final int position, WifiItemData data) {
                 if(viewType == WifiRecyclerViewAdapter.VIEW_TYPE_SAVED_DATA
                         || viewType == WifiRecyclerViewAdapter.VIEW_TYPE_NEARBY_DATA) {
-                    WifiItemDialog dialog = new WifiItemDialog(MainActivity.this, data);
+                    WifiItemDialog dialog = new CommonWifiItemDialog(MainActivity.this, data);
                     dialog.setOnDialogResultListener(new WifiItemDialog.OnDialogResultListener() {
                         @Override
                         public void onDialogResult(int result, WifiItemData data) {

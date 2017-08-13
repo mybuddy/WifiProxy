@@ -1,7 +1,10 @@
 package com.felixyan.wifiproxy.model;
 
-import com.felixyan.wifiproxy.dao.StaticProxyDao;
+import com.felixyan.wifiproxy.dao.ManualProxyDao;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,12 +13,21 @@ import java.util.List;
  * Created by yanfei on 2017/07/30.
  */
 
-public class StaticProxy {
+public class ManualProxy {
     private String ssid;
     private String hostname;
     private int port;
     private String exclusionHosts;
     private boolean isInUse;
+
+    public ManualProxy() {}
+
+    public ManualProxy(String ssid, String hostname, int port, String exclusionHosts) {
+        this.ssid = ssid;
+        this.hostname = hostname;
+        this.port = port;
+        this.exclusionHosts = exclusionHosts;
+    }
 
     public String getSsid() {
         return ssid;
@@ -45,6 +57,10 @@ public class StaticProxy {
         return exclusionHosts;
     }
 
+    public List<String> getExclusionHostList() {
+        return new ArrayList<>(Arrays.asList(exclusionHosts.split(",")));
+    }
+
     public void setExclusionHosts(String exclusionHosts) {
         this.exclusionHosts = exclusionHosts;
     }
@@ -69,8 +85,12 @@ public class StaticProxy {
         isInUse = inUse;
     }
 
-    public static List<StaticProxy> getList(String ssid) {
-        return new StaticProxyDao().getList("ssid = ?", new String[]{ ssid });
+    public static List<ManualProxy> getList(String ssid) {
+        return new ManualProxyDao().getList("ssid = ?", new String[]{ ssid });
+    }
+
+    public boolean save() {
+        return new ManualProxyDao().save(this, "ssid = ?", new String[] {ssid});
     }
 
     @Override

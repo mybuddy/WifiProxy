@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 
-import com.felixyan.wifiproxy.model.StaticProxy;
+import com.felixyan.wifiproxy.model.ManualProxy;
 
 import java.util.Map;
 
@@ -12,8 +12,8 @@ import java.util.Map;
  * Created by yanfei on 2017/07/30.
  */
 
-public class StaticProxyDao extends BaseDao<StaticProxy> {
-    private static final String TABLE_NAME = "static_proxy";
+public class ManualProxyDao extends BaseDao<ManualProxy> {
+    private static final String TABLE_NAME = "manual_proxy";
     //private static final String COLUMN_ID = "_id";
     private static final String COLUMN_SSID = "ssid";
     private static final String COLUMN_HOSTNAME = "hostname";
@@ -41,7 +41,7 @@ public class StaticProxyDao extends BaseDao<StaticProxy> {
     }
 
     @Override
-    protected ContentValues getContentValues(@NonNull StaticProxy model) {
+    protected ContentValues getContentValues(@NonNull ManualProxy model) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_SSID, model.getSsid());
         values.put(COLUMN_HOSTNAME, model.getHostname());
@@ -51,11 +51,11 @@ public class StaticProxyDao extends BaseDao<StaticProxy> {
     }
 
     @Override
-    protected StaticProxy getModel(@NonNull Cursor cursor) {
-        StaticProxy model = null;
+    protected ManualProxy getModel(@NonNull Cursor cursor) {
+        ManualProxy model = null;
         Map<String, Integer> map = getColumnIndexMap(cursor);
         if(map != null) {
-            model = new StaticProxy();
+            model = new ManualProxy();
             model.setSsid(cursor.getString(map.get(COLUMN_SSID)));
             model.setHostname(cursor.getString(map.get(COLUMN_HOSTNAME)));
             model.setPort(getInt(cursor, map.get(COLUMN_PORT)));
